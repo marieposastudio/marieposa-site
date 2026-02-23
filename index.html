@@ -2,342 +2,484 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MARIEPOSA</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MARIEPOSA — Founder Phase</title>
   <meta name="description" content="MARIEPOSA — Founder Phase." />
+  <meta name="theme-color" content="#070504" />
 
-  <!-- Fonts: luxury serif + readable elegant script -->
+  <!-- Social preview -->
+  <meta property="og:title" content="MARIEPOSA — Founder Phase" />
+  <meta property="og:description" content="Years of experience become tangible luxury." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="logo.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="logo.png" />
+
+  <!-- Luxury serif + readable “cursive feel” -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Cormorant+Garamond:ital,wght@0,400;1,500&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      /* Espresso + gold */
-      --espresso:#070605;               /* near-black espresso */
-      --espresso2:#0f0b08;
-      --gold:#d7b86a;                   /* warm gold */
-      --gold2:#b99443;                  /* deeper gold */
-      --cream:#f4efe5;                  /* soft warm highlight */
-      --muted:rgba(244,239,229,.72);
-      --line:rgba(215,184,106,.18);
-      --hair:rgba(244,239,229,.08);
-      --shadow:rgba(0,0,0,.65);
+      --bg0:#050403;            /* espresso-black */
+      --bg1:#0b0706;            /* warm shadow */
+      --gold:#caa24f;           /* warm gold */
+      --gold2:#e1c67a;          /* highlight gold */
+      --cream:#f3ede2;          /* soft light */
+      --muted:rgba(243,237,226,.72);
+      --line:rgba(202,162,79,.22);
+      --shadow: rgba(0,0,0,.55);
+      --glass: rgba(7,5,4,.55);
     }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      background: var(--espresso);
-      color: var(--cream);
-      font-family: "Playfair Display", Didot, "Bodoni MT", "Times New Roman", serif;
-      letter-spacing:.02em;
+      color:var(--cream);
+      background: var(--bg0);
+      font-family: "Bodoni Moda", Didot, "Didot LT STD", "Bodoni 72", Georgia, serif;
+      letter-spacing: .02em;
       overflow-x:hidden;
     }
 
-    /* --- TEXTURED BACKGROUND LAYERS --- */
-    .bg{
-      position:fixed;
-      inset:0;
-      z-index:-2;
-      background:
-        radial-gradient(1200px 800px at 50% 40%, rgba(215,184,106,.08), transparent 55%),
-        radial-gradient(900px 700px at 30% 55%, rgba(255,255,255,.05), transparent 60%),
-        radial-gradient(1100px 900px at 70% 60%, rgba(0,0,0,.55), transparent 60%),
-        linear-gradient(180deg, var(--espresso2), var(--espresso));
-    }
-
-    /* Add a stronger leather-like texture:
-       If you upload a file named texture.jpg into the repo root,
-       this layer will pick it up automatically. */
-    .bg::before{
-      content:"";
-      position:absolute;
-      inset:-20%;
-      background-image:
-        url("texture.jpg");
-      background-size:cover;
-      background-position:center;
-      opacity:.46;                /* strong texture */
-      filter: contrast(1.12) saturate(.85) brightness(.68);
-      mix-blend-mode: multiply;   /* makes it feel like leather */
-      transform: rotate(-1deg) scale(1.05);
-      pointer-events:none;
-    }
-
-    /* Fallback micro-noise (still works if texture.jpg is not present) */
-    .bg::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        repeating-radial-gradient(circle at 20% 30%,
-          rgba(255,255,255,.020) 0px,
-          rgba(255,255,255,.020) 1px,
-          rgba(0,0,0,0) 2px,
-          rgba(0,0,0,0) 4px);
-      opacity:.55;
-      mix-blend-mode: overlay;
-      filter: blur(.15px);
-      pointer-events:none;
-    }
-
-    /* --- LAYOUT --- */
-    .wrap{
-      min-height:100vh;
+    /* Leather / velvet depth:
+       - optional texture.jpg (if you add it)
+       - warm vignettes + subtle color bloom
+       - procedural grain overlay via SVG filter (no external image needed) */
+    .stage{
+      min-height:100svh;
+      position:relative;
       display:flex;
       flex-direction:column;
+      isolation:isolate;
+      background:
+        radial-gradient(1200px 900px at 30% 35%, rgba(202,162,79,.14), transparent 60%),
+        radial-gradient(900px 700px at 70% 40%, rgba(202,162,79,.09), transparent 58%),
+        radial-gradient(1200px 900px at 50% 60%, rgba(0,0,0,.55), rgba(0,0,0,.86) 70%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
     }
 
-    header{
-      padding:24px 28px;
+    /* Optional: if texture.jpg exists, it will add real texture */
+    .stage::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        url("texture.jpg") center/cover no-repeat;
+      opacity:.28;
+      mix-blend-mode:overlay;
+      filter: contrast(1.05) saturate(1.05);
+      pointer-events:none;
+      z-index:-2;
+    }
+
+    /* Procedural grain overlay (stronger than before) */
+    .stage::after{
+      content:"";
+      position:absolute; inset:-20%;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='800'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      opacity:.15;
+      mix-blend-mode:soft-light;
+      transform: rotate(-6deg);
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    .wrap{
+      width:min(1100px, 92vw);
+      margin:0 auto;
+      padding:28px 0 38px;
       display:flex;
-      justify-content:space-between;
+      flex-direction:column;
+      min-height:100svh;
+    }
+
+    /* Top bar */
+    .top{
+      display:flex;
       align-items:center;
-      gap:18px;
+      justify-content:space-between;
+      gap:16px;
+      padding-top:6px;
     }
 
     .brandlock{
       display:flex;
       align-items:center;
       gap:12px;
-      min-width:220px;
+      min-width: 240px;
     }
 
     .mark{
-      width:40px;
-      height:40px;
+      width:34px; height:34px;
       border-radius:999px;
-      border:1px solid rgba(215,184,106,.22);
-      background: rgba(0,0,0,.20);
-      display:grid;
-      place-items:center;
-      box-shadow: 0 12px 28px rgba(0,0,0,.35);
+      border:1px solid rgba(202,162,79,.28);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(225,198,122,.18), transparent 55%),
+        rgba(7,5,4,.55);
+      display:grid; place-items:center;
       overflow:hidden;
+      box-shadow: 0 12px 32px rgba(0,0,0,.45);
     }
     .mark img{
-      width:22px;
-      height:auto;
-      display:block;
-      filter: drop-shadow(0 10px 12px rgba(0,0,0,.45));
+      width:24px; height:24px; object-fit:contain;
+      filter: drop-shadow(0 8px 10px rgba(0,0,0,.55));
       opacity:.95;
     }
 
-    .brandtext{
+    .wordstack{
       display:flex;
       flex-direction:column;
-      gap:2px;
       line-height:1;
+      gap:6px;
     }
-    .brandtext .name{
-      font-size:15px;
-      letter-spacing:.34em;
+    .wordstack .name{
+      font-size:14px;
+      letter-spacing:.38em;
       text-transform:uppercase;
-      color: rgba(244,239,229,.92);
+      color:rgba(243,237,226,.88);
     }
-    .brandtext .phase{
-      font-size:11px; /* more readable */
-      letter-spacing:.32em;
+    .wordstack .phase{
+      font-size:10px;
+      letter-spacing:.42em;
       text-transform:uppercase;
-      color: rgba(215,184,106,.72);
+      color:rgba(202,162,79,.72);
     }
 
-    .nav{
+    .actions{
       display:flex;
-      gap:10px;
       align-items:center;
+      gap:10px;
     }
-
-    .pill{
+    .btn{
       appearance:none;
-      border:1px solid rgba(215,184,106,.28);
-      background: rgba(0,0,0,.20);
-      color: rgba(244,239,229,.86);
+      border:1px solid rgba(202,162,79,.34);
+      color:rgba(243,237,226,.9);
+      background: rgba(7,5,4,.35);
       padding:10px 14px;
       border-radius:999px;
-      text-decoration:none;
-      font-size:12px;
-      letter-spacing:.18em;
+      font: 500 12px/1 "Bodoni Moda", Didot, Georgia, serif;
+      letter-spacing:.28em;
       text-transform:uppercase;
-      transition: transform .15s ease, border-color .15s ease, background .15s ease;
-      box-shadow: 0 14px 28px rgba(0,0,0,.25);
       cursor:pointer;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      backdrop-filter: blur(6px);
     }
-    .pill:hover{
+    .btn:hover{
       transform: translateY(-1px);
-      border-color: rgba(215,184,106,.45);
-      background: rgba(0,0,0,.28);
+      border-color: rgba(225,198,122,.55);
+      background: rgba(7,5,4,.48);
     }
 
-    .rule{
+    .divider{
+      margin:22px 0 0;
+      border:0;
       height:1px;
-      background: linear-gradient(90deg, transparent, var(--hair), transparent);
-      margin: 0 28px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+      opacity:.9;
     }
 
-    main{
-      flex:1;
-      display:grid;
-      place-items:center;
-      padding: 34px 22px 18px;
-      text-align:center;
-    }
-
+    /* Hero center */
     .hero{
-      width:min(900px, 92vw);
+      flex:1;
       display:flex;
       flex-direction:column;
       align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:36px 0 26px;
       gap:18px;
     }
 
-    .emblem{
-      width:min(420px, 70vw);
-      max-width:520px;
+    .heroLogo{
+      width:min(340px, 60vw);
       height:auto;
       display:block;
       filter:
-        drop-shadow(0 30px 55px rgba(0,0,0,.75))
-        drop-shadow(0 10px 18px rgba(215,184,106,.18));
-      opacity:.98;
+        drop-shadow(0 30px 40px rgba(0,0,0,.62))
+        drop-shadow(0 10px 14px rgba(0,0,0,.55));
+      opacity: .98;
       transform: translateZ(0);
     }
 
     .tagline{
-      font-family: "Allura", cursive;
-      font-size: clamp(20px, 2.4vw, 32px);
-      color: rgba(215,184,106,.88);
-      letter-spacing:.02em;
-      text-shadow: 0 1px 0 rgba(0,0,0,.35);
-      margin-top:-6px;
+      font-family: "Cormorant Garamond", "Bodoni Moda", serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(16px, 2.2vw, 20px);
+      letter-spacing: .06em; /* cursive-feel but readable */
+      color: rgba(225,198,122,.88);
+      text-shadow: 0 2px 10px rgba(0,0,0,.55);
+      margin-top: 6px;
     }
 
-    .tagline::before{
-      content:"";
-      display:block;
-      width: 70px;
-      height:1px;
-      background: linear-gradient(90deg, transparent, rgba(215,184,106,.42), transparent);
-      margin: 0 auto 10px;
-    }
-
-    footer{
-      padding: 18px 22px 28px;
-      text-align:center;
-      color: rgba(244,239,229,.62);
+    .bottom{
+      padding-top:10px;
     }
 
     .names{
       display:flex;
       justify-content:center;
-      gap:22px;
       flex-wrap:wrap;
+      gap:18px 22px;
+      padding:18px 0 10px;
+      color: rgba(243,237,226,.55);
+      text-transform:uppercase;
       font-size:11px;
       letter-spacing:.28em;
-      text-transform:uppercase;
-      color: rgba(244,239,229,.55);
-      margin-bottom:10px;
+      user-select:none;
     }
 
     .copyright{
-      font-size:11px;
-      letter-spacing:.14em;
-      color: rgba(244,239,229,.35);
+      text-align:center;
+      font-size:10px;
+      letter-spacing:.32em;
       text-transform:uppercase;
+      color: rgba(243,237,226,.35);
+      padding-bottom:10px;
     }
 
-    /* --- CONTACT MODAL (no email exposed) --- */
-    .modal{
-      position:fixed;
-      inset:0;
-      display:none;
-      place-items:center;
-      padding: 22px;
+    /* Contact modal */
+    .overlay{
+      position:fixed; inset:0;
       background: rgba(0,0,0,.62);
-      backdrop-filter: blur(6px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:22px;
       z-index:50;
     }
-    .modal[aria-hidden="false"]{ display:grid; }
-
-    .panel{
-      width:min(560px, 92vw);
+    .overlay.open{display:flex}
+    .modal{
+      width:min(640px, 94vw);
       border-radius:18px;
-      border:1px solid rgba(215,184,106,.22);
+      border:1px solid rgba(202,162,79,.26);
       background:
-        radial-gradient(1200px 500px at 50% 0%, rgba(215,184,106,.10), transparent 55%),
-        rgba(6,5,4,.92);
-      box-shadow: 0 40px 90px rgba(0,0,0,.75);
-      overflow:hidden;
+        radial-gradient(900px 600px at 30% 20%, rgba(202,162,79,.10), transparent 55%),
+        rgba(7,5,4,.82);
+      box-shadow: 0 40px 120px rgba(0,0,0,.7);
+      backdrop-filter: blur(10px);
+      padding:18px 18px 16px;
+      position:relative;
     }
-    .panelHead{
-      padding:16px 18px;
+    .modalTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:4px 4px 10px;
+    }
+    .modalTop .title{
+      font-size:12px;
+      letter-spacing:.34em;
+      text-transform:uppercase;
+      color: rgba(243,237,226,.82);
+    }
+    .x{
+      border:1px solid rgba(202,162,79,.26);
+      background: rgba(0,0,0,.22);
+      color: rgba(243,237,226,.85);
+      border-radius:999px;
+      width:36px; height:36px;
+      cursor:pointer;
+      font-size:18px;
+      line-height:0;
+    }
+
+    form{
+      display:grid;
+      gap:10px;
+      padding:6px 4px 2px;
+    }
+    label{
+      font-size:11px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color: rgba(243,237,226,.62);
+    }
+    input, textarea{
+      width:100%;
+      border-radius:12px;
+      border:1px solid rgba(202,162,79,.22);
+      background: rgba(0,0,0,.22);
+      color: rgba(243,237,226,.92);
+      padding:12px 12px;
+      font: 400 15px/1.25 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      outline:none;
+    }
+    textarea{min-height:140px; resize:vertical}
+    input:focus, textarea:focus{
+      border-color: rgba(225,198,122,.55);
+      box-shadow: 0 0 0 3px rgba(202,162,79,.12);
+    }
+
+    .hp{display:none} /* honeypot hidden */
+
+    .sendRow{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      border-bottom:1px solid rgba(244,239,229,.08);
-    }
-    .panelHead .title{
-      font-size:12px;
-      letter-spacing:.26em;
-      text-transform:uppercase;
-      color: rgba(244,239,229,.82);
-    }
-    .x{
-      border:1px solid rgba(215,184,106,.24);
-      background: rgba(0,0,0,.25);
-      color: rgba(244,239,229,.80);
-      border-radius:999px;
-      width:38px;
-      height:38px;
-      cursor:pointer;
-    }
-    .panelBody{
-      padding:18px;
-    }
-    label{
-      display:block;
-      font-size:11px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color: rgba(244,239,229,.62);
-      margin: 12px 0 8px;
-    }
-    input, textarea{
-      width:100%;
-      border-radius:14px;
-      border:1px solid rgba(215,184,106,.20);
-      background: rgba(0,0,0,.25);
-      color: rgba(244,239,229,.90);
-      padding:12px 12px;
-      outline:none;
-      font-family: inherit;
-      letter-spacing:.02em;
-    }
-    textarea{ min-height:120px; resize:vertical; }
-
-    .actions{
-      display:flex;
-      justify-content:flex-end;
-      gap:10px;
-      margin-top:14px;
-    }
-    .btn{
-      border-radius:999px;
-      border:1px solid rgba(215,184,106,.28);
-      background: rgba(0,0,0,.20);
-      color: rgba(244,239,229,.86);
-      padding:10px 14px;
-      font-size:12px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      cursor:pointer;
-    }
-    .btn.primary{
-      background: rgba(215,184,106,.14);
-      border-color: rgba(215,184,106,.44);
+      padding:6px 4px 2px;
     }
 
     .note{
-      margin-top:10px;
+      font-size:12px;
+      color: rgba(243,237,226,.52);
+      letter-spacing:.02em;
+    }
+    .send{
+      border:1px solid rgba(225,198,122,.55);
+      background: linear-gradient(180deg, rgba(202,162,79,.28), rgba(202,162,79,.14));
+      color: rgba(243,237,226,.92);
+      padding:11px 16px;
+      border-radius:999px;
+      cursor:pointer;
+      letter-spacing:.26em;
+      text-transform:uppercase;
+      font: 500 12px/1 "Bodoni Moda", Didot, Georgia, serif;
+    }
+
+    .success{
+      display:none;
+      margin: 8px 4px 0;
+      padding: 10px 12px;
+      border: 1px solid rgba(202,162,79,.25);
+      border-radius: 12px;
+      color: rgba(225,198,122,.9);
+      background: rgba(0,0,0,.20);
+      font-size: 13px;
+    }
+    .success.show{display:block}
+
+    @media (max-width:520px){
+      .actions{gap:8px}
+      .btn{padding:9px 12px; letter-spacing:.22em}
+      .wordstack .name{letter-spacing:.32em}
+      .names{gap:14px 18px}
+    }
+  </style>
+</head>
+
+<body>
+  <main class="stage">
+    <div class="wrap">
+      <header class="top" aria-label="Header">
+        <div class="brandlock" aria-label="Brand lockup">
+          <div class="mark" aria-hidden="true">
+            <!-- uses your existing logo.png; if you later add a separate mark file, swap it here -->
+            <img src="logo.png" alt="" />
+          </div>
+          <div class="wordstack">
+            <div class="name">MARIEPOSA</div>
+            <div class="phase">FOUNDER PHASE</div>
+          </div>
+        </div>
+
+        <nav class="actions" aria-label="Actions">
+          <a class="btn" href="https://www.instagram.com/mariepo.sa?igsh=NTc4MTIwNjQ2YQ==" target="_blank" rel="noreferrer">Instagram</a>
+          <button class="btn" id="contactBtn" type="button">Contact</button>
+        </nav>
+      </header>
+
+      <hr class="divider" />
+
+      <section class="hero" aria-label="Hero">
+        <!-- Big center emblem (your logo) -->
+        <img class="heroLogo" src="logo.png" alt="MARIEPOSA" />
+        <div class="tagline">Years of experience become tangible luxury.</div>
+      </section>
+
+      <footer class="bottom" aria-label="Footer">
+        <div class="names" aria-label="Collection names">
+          <span>Misty</span><span>Nancy</span><span>Carol</span><span>Alicia</span><span>Debbie</span><span>Kimbarbie</span>
+        </div>
+        <div class="copyright">© <span id="y"></span> MARIEPOSA</div>
+      </footer>
+    </div>
+  </main>
+
+  <!-- Contact modal (Netlify Forms — no email exposed to visitors) -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Contact">
+    <div class="modal">
+      <div class="modalTop">
+        <div class="title">Contact</div>
+        <button class="x" id="closeBtn" type="button" aria-label="Close">×</button>
+      </div>
+
+      <div class="success" id="successBox">Received. We’ll respond as soon as possible.</div>
+
+      <!-- Netlify Forms: submissions show up in Netlify → Forms -->
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?success=1">
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hp">
+          <label>Don’t fill this out: <input name="bot-field" /></label>
+        </p>
+
+        <div>
+          <label for="email">Your email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+
+        <div>
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" required />
+        </div>
+
+        <div>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+
+        <div class="sendRow">
+          <div class="note">Your message is delivered privately.</div>
+          <button class="send" type="submit">Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Year
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Modal open/close
+    const overlay = document.getElementById("overlay");
+    const openBtn = document.getElementById("contactBtn");
+    const closeBtn = document.getElementById("closeBtn");
+
+    function openModal(){
+      overlay.classList.add("open");
+      // focus first field for polish
+      setTimeout(() => {
+        const email = document.getElementById("email");
+        if (email) email.focus();
+      }, 50);
+    }
+    function closeModal(){
+      overlay.classList.remove("open");
+    }
+
+    openBtn.addEventListener("click", openModal);
+    closeBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) closeModal();
+    });
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeModal();
+    });
+
+    // Success flag (after Netlify redirect)
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("success") === "1") {
+      // show success and open modal (optional, feels luxe)
+      document.getElementById("successBox").classList.add("show");
+      openModal();
+      // clean URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  </script>
+</body>
+</html>
