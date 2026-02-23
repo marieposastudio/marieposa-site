@@ -5,238 +5,240 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>MARIEPOSA</title>
   <meta name="description" content="MARIEPOSA — Founder Phase." />
-
   <style>
     :root{
-      --bg:#0a0605;                 /* deep espresso */
-      --bg2:#120907;                /* richer espresso */
-      --ink:#F5F0E8;                /* warm ivory */
-      --muted:rgba(245,240,232,.60);
-      --hair:rgba(245,240,232,.12);
-      --gold:#C8A24B;               /* soft gold */
-      --gold2:rgba(200,162,75,.22);
-      --card:rgba(245,240,232,.06);
+      --espresso:#070403;
+      --espresso-2:#0d0706;
+      --gold:#c8a24b;
+      --gold-2:#e1c77a;
+      --ivory:rgba(255,245,230,.92);
+      --muted:rgba(255,245,230,.62);
+      --hair:rgba(255,245,230,.10);
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
+
     body{
       margin:0;
+      color:var(--ivory);
       background:
-        radial-gradient(1100px 700px at 50% 12%, rgba(200,162,75,.12), transparent 55%),
-        radial-gradient(900px 600px at 20% 88%, rgba(245,240,232,.05), transparent 60%),
-        linear-gradient(180deg, var(--bg2), var(--bg));
-      color:var(--ink);
+        radial-gradient(1100px 700px at 50% 20%, rgba(200,162,75,.14), transparent 60%),
+        radial-gradient(900px 600px at 20% 85%, rgba(255,245,230,.05), transparent 65%),
+        linear-gradient(180deg, var(--espresso-2), var(--espresso));
       font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
-      letter-spacing:.2px;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+      letter-spacing:.12em;
+      overflow-x:hidden;
     }
 
-    a{color:inherit;text-decoration:none}
+    /* subtle “leather” depth without an image */
+    body:before{
+      content:"";
+      position:fixed; inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(1200px 900px at 35% 30%, rgba(0,0,0,.0), rgba(0,0,0,.35) 62%, rgba(0,0,0,.55)),
+        repeating-linear-gradient(115deg,
+          rgba(255,255,255,.010) 0px,
+          rgba(255,255,255,.010) 2px,
+          rgba(0,0,0,.010) 6px,
+          rgba(0,0,0,.010) 10px
+        );
+      mix-blend-mode: soft-light;
+      opacity:.55;
+    }
+
+    a{color:inherit; text-decoration:none}
     .wrap{
-      max-width:980px;
-      margin:0 auto;
-      padding:34px 18px 30px;
-      min-height:100%;
+      min-height:100vh;
       display:flex;
       flex-direction:column;
+      padding:28px 22px;
     }
 
     header{
       display:flex;
       align-items:center;
       justify-content:space-between;
+      gap:16px;
+    }
+
+    .mark{
+      display:flex;
+      align-items:center;
       gap:14px;
-      padding:10px 0 18px;
-      border-bottom:1px solid var(--hair);
+      min-width: 220px;
+    }
+
+    .seal{
+      width:44px; height:44px;
+      border-radius:999px;
+      border:1px solid rgba(200,162,75,.35);
+      background: radial-gradient(circle at 30% 30%, rgba(225,199,122,.18), rgba(0,0,0,.10));
+      display:grid;
+      place-items:center;
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    .seal img{
+      width:26px; height:26px;
+      object-fit:contain;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,.55));
     }
 
     .brand{
       display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
-
-    /* Butterfly logo container (shows your gold butterfly) */
-    .logoBox{
-      width:46px;height:46px;
-      border-radius:18px;
-      border:1px solid var(--gold2);
-      background: rgba(245,240,232,.05);
-      display:grid;place-items:center;
-      overflow:hidden;
-      box-shadow:
-        0 0 0 1px rgba(200,162,75,.06) inset,
-        0 10px 30px rgba(0,0,0,.28);
-    }
-    .logoBox img{
-      width:100%;height:100%;
-      object-fit:contain;
-      padding:6px;
-      display:block;
-    }
-
-    .wordmark{
-      display:flex;
       flex-direction:column;
       gap:4px;
-      min-width:0;
+      line-height:1;
     }
-    .name{
-      font-size:14px;
-      letter-spacing:.36em;
-      font-weight:700;
-      white-space:nowrap;
+    .brand .name{
+      font-size:12px;
+      letter-spacing:.34em;
     }
-    .phase{
-      font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    .brand .phase{
       font-size:10px;
-      letter-spacing:.30em;
-      text-transform:uppercase;
+      letter-spacing:.36em;
       color:var(--muted);
-      white-space:nowrap;
+      text-transform:uppercase;
     }
 
-    nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-    .btn{
-      font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .pill{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(200,162,75,.28);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,245,230,.82);
       font-size:11px;
       letter-spacing:.22em;
       text-transform:uppercase;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid var(--hair);
-      background: rgba(245,240,232,.05);
-      color: rgba(245,240,232,.86);
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
     }
-    .btn:hover{border-color:rgba(245,240,232,.22)}
-    .btn.primary{
-      border-color: rgba(200,162,75,.40);
-      background: rgba(200,162,75,.12);
-      color: rgba(245,240,232,.92);
-      box-shadow: 0 0 0 1px rgba(200,162,75,.06) inset;
+    .pill:hover{
+      transform: translateY(-1px);
+      border-color: rgba(200,162,75,.55);
+      background: rgba(0,0,0,.28);
     }
-    .btn.primary:hover{border-color:rgba(200,162,75,.60)}
+
+    .rule{
+      height:1px;
+      background: linear-gradient(90deg, transparent, var(--hair), transparent);
+      margin:18px 0 0;
+    }
 
     main{
       flex:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      display:grid;
+      place-items:center;
+      padding:48px 0 28px;
       text-align:center;
-      padding:56px 0 44px;
     }
 
-    .center{
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 0 6px;
-    }
-
-    /* Big, minimal, mysterious */
-    .heroMark{
-      font-size: 52px;
-      line-height: 1.02;
-      letter-spacing: .18em;
-      font-weight: 650;
-      margin: 0 0 14px;
-    }
-
-    .line{
-      width: 120px;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(200,162,75,.65), transparent);
-      margin: 18px auto 18px;
-    }
-
-    .tag{
-      font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-      font-size: 13px;
-      line-height: 1.7;
-      letter-spacing: .02em;
-      color: rgba(245,240,232,.74);
-      margin: 0;
-    }
-    .gold{color: var(--gold)}
-
-    footer{
-      border-top:1px solid var(--hair);
-      padding-top:18px;
+    .hero{
       display:flex;
       flex-direction:column;
-      gap:12px;
+      align-items:center;
+      gap:18px;
+      max-width: 860px;
+      width:100%;
+    }
+
+    /* MAIN LOGO */
+    .logo{
+      width:min(520px, 82vw);
+      height:auto;
+      display:block;
+      filter:
+        drop-shadow(0 22px 50px rgba(0,0,0,.55))
+        drop-shadow(0 0 22px rgba(200,162,75,.12));
+      opacity:.98;
+    }
+
+    .tagline{
+      font-size:12px;
+      letter-spacing:.26em;
+      text-transform:uppercase;
+      color: rgba(200,162,75,.78);
+    }
+
+    footer{
+      margin-top:auto;
+      padding-top:18px;
+      border-top:1px solid rgba(255,245,230,.06);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
       align-items:center;
       text-align:center;
     }
 
     .names{
+      font-size:11px;
+      color: rgba(255,245,230,.55);
+      letter-spacing:.30em;
+      text-transform:uppercase;
       display:flex;
       flex-wrap:wrap;
       justify-content:center;
-      gap:12px 18px;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-      font-size: 11px;
-      letter-spacing: .26em;
-      text-transform: uppercase;
-      color: rgba(245,240,232,.60);
-      padding: 4px 0 10px;
-    }
-    .names span{white-space:nowrap}
-
-    .fine{
-      font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-      font-size: 10px;
-      letter-spacing: .26em;
-      text-transform: uppercase;
-      color: rgba(245,240,232,.48);
-      padding-bottom: 6px;
+      gap:14px;
     }
 
-    @media (max-width:560px){
-      .heroMark{font-size:40px}
+    .tiny{
+      font-size:10px;
+      color: rgba(255,245,230,.35);
+      letter-spacing:.26em;
+      text-transform:uppercase;
+    }
+
+    @media (max-width:520px){
+      .mark{min-width:auto}
+      .brand .name{font-size:11px}
+      .pill{padding:10px 12px}
+      main{padding:40px 0 22px}
+      .tagline{font-size:11px; letter-spacing:.22em}
     }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-
     <header>
-      <div class="brand">
-        <div class="logoBox">
-          <!-- Must match your repo file name exactly -->
-          <img src="./logo.png" alt="MARIEPOSA butterfly logo" />
+      <div class="mark" aria-label="Marieposa">
+        <div class="seal" aria-hidden="true">
+          <!-- small butterfly mark (use a transparent butterfly-only png if you have it; logo.png works too) -->
+          <img src="logo.png" alt="" />
         </div>
-        <div class="wordmark">
+        <div class="brand">
           <div class="name">MARIEPOSA</div>
-          <div class="phase">FOUNDER PHASE</div>
+          <div class="phase">Founder Phase</div>
         </div>
       </div>
 
-      <nav>
-        <a class="btn" href="https://www.instagram.com/mariepo.sa?igsh=NTc4MTIwNjQ2YQ==" target="_blank" rel="noreferrer">
-          Instagram
-        </a>
-        <a class="btn primary" href="mailto:marieposa.studio@gmail.com?subject=Marieposa%20Inquiry" aria-label="Email Marieposa">
-          Contact
-        </a>
+      <nav class="nav" aria-label="Links">
+        <a class="pill" href="https://www.instagram.com/mariepo.sa" target="_blank" rel="noreferrer">Instagram</a>
+        <a class="pill" href="mailto:marieposa.studio@gmail.com?subject=Marieposa%20Inquiry">Contact</a>
       </nav>
     </header>
 
+    <div class="rule"></div>
+
     <main>
-      <div class="center">
-        <div class="heroMark">MARIEPOSA</div>
-        <div class="line"></div>
-        <p class="tag">
-          <span class="gold">Years of experience</span> become tangible luxury.
-        </p>
+      <div class="hero">
+        <!-- MAIN centered logo -->
+        <img class="logo" src="logo.png" alt="MARIEPOSA" />
+        <div class="tagline">Years of experience become tangible luxury.</div>
       </div>
     </main>
 
     <footer>
-      <div class="names" aria-label="Names">
+      <div class="names" aria-label="Collection names">
         <span>Misty</span>
         <span>Nancy</span>
         <span>Carol</span>
@@ -244,13 +246,8 @@
         <span>Debbie</span>
         <span>Kimbarbie</span>
       </div>
-      <div class="fine">© <span id="y"></span> MARIEPOSA</div>
+      <div class="tiny">© 2026 MARIEPOSA</div>
     </footer>
-
   </div>
-
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
