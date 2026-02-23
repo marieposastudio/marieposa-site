@@ -3,526 +3,64 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MARIEPOSA — Founder Phase</title>
-  <meta name="description" content="MARIEPOSA — Founder Phase" />
-
-  <!-- Luxury serif (fallbacks included) -->
+  <title>Message Sent — MARIEPOSA</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:opsz,wght@5..120,400,500,600&display=swap" rel="stylesheet">
   <style>
     :root{
-      /* IG-black vibe */
-      --bg0:#050505;
-      --bg1:#070707;
-      --gold:#c9a24a;
-      --gold2:#e0c067;
-      --ivory:#f3f0ea;
-      --muted:#b9b2a7;
-      --line:rgba(255,255,255,.09);
-      --line2:rgba(201,162,74,.25);
+      --bg:#050505;
+      --gold:#caa54b;
+      --serif:"Didot","Bodoni 72","Bodoni MT","Didot LT STD","Playfair Display",Georgia,serif;
     }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    html,body{height:100%;}
     body{
       margin:0;
-      color:var(--ivory);
-      background: var(--bg0);
-      font-family: "Cormorant Garamond", Garamond, Georgia, serif;
-      letter-spacing:.02em;
-      overflow-x:hidden;
-    }
-
-    /* Strong “leather-ish” texture + spotlight like IG */
-    body::before{
-      content:"";
-      position:fixed; inset:0;
-      pointer-events:none;
+      display:grid;
+      place-items:center;
+      color:rgba(242,242,242,.9);
+      font-family:var(--serif);
       background:
-        /* spotlight */
-        radial-gradient(900px 650px at 50% 42%,
-          rgba(201,162,74,.24) 0%,
-          rgba(201,162,74,.10) 18%,
-          rgba(0,0,0,.0) 55%),
-        /* vignette */
-        radial-gradient(1200px 900px at 50% 45%,
-          rgba(0,0,0,.0) 35%,
-          rgba(0,0,0,.55) 75%,
-          rgba(0,0,0,.78) 100%),
-        /* subtle leather grain bands */
-        repeating-radial-gradient(circle at 35% 35%,
-          rgba(255,255,255,.015) 0px,
-          rgba(255,255,255,.000) 18px,
-          rgba(255,255,255,.012) 42px,
-          rgba(255,255,255,.000) 70px),
-        /* base */
-        linear-gradient(180deg, var(--bg1), var(--bg0));
-      mix-blend-mode:normal;
+        radial-gradient(1200px 700px at 45% 40%, rgba(202,165,75,.10), rgba(0,0,0,0) 60%),
+        linear-gradient(180deg,#070707,#050505);
     }
-
-    /* Extra fine film grain (data-uri SVG noise) */
-    body::after{
-      content:"";
-      position:fixed; inset:0;
-      pointer-events:none;
-      opacity:.18;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
-      background-size:180px 180px;
-      mix-blend-mode:overlay;
+    .box{
+      text-align:center;
+      padding:28px 18px;
+      width:min(780px,92vw);
     }
-
-    .wrap{
-      min-height:100%;
-      display:flex;
-      flex-direction:column;
-    }
-
-    /* Top bar */
-    header{
-      position:relative;
-      z-index:2;
-      padding:22px 28px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      border-bottom:1px solid rgba(255,255,255,.06);
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:260px;
-    }
-
-    .mark{
-      width:34px;
-      height:34px;
-      border-radius:999px;
-      border:1px solid rgba(201,162,74,.35);
-      display:grid;
-      place-items:center;
-      background:rgba(0,0,0,.25);
-      box-shadow: 0 10px 30px rgba(0,0,0,.55);
-      overflow:hidden;
-    }
-    .mark img{
-      width:18px;
-      height:auto;
-      display:block;
-      filter: drop-shadow(0 6px 8px rgba(0,0,0,.55));
-    }
-
-    .brandText{
-      line-height:1.05;
-    }
-
-    .wordmark{
-      font-family:"Bodoni Moda","Didot","Bodoni 72","Times New Roman",serif;
+    h1{
+      margin:0 0 8px;
+      letter-spacing:.34em;
       text-transform:uppercase;
       font-weight:500;
-      letter-spacing:.16em;
-      font-size:14px;
-    }
-
-    .phase{
-      margin-top:4px;
-      font-family:"Bodoni Moda","Didot","Bodoni 72","Times New Roman",serif;
-      text-transform:uppercase;
-      letter-spacing:.28em;
-      font-size:11px;
-      color:rgba(243,240,234,.72);
-    }
-
-    .actions{
-      display:flex;
-      gap:12px;
-      align-items:center;
-    }
-
-    .pill{
-      font-family:"Bodoni Moda","Didot","Bodoni 72","Times New Roman",serif;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      font-size:12px;
-      padding:10px 16px;
-      border-radius:999px;
-      border:1px solid rgba(201,162,74,.35);
-      background:rgba(0,0,0,.25);
-      color:rgba(243,240,234,.92);
-      cursor:pointer;
-      box-shadow: 0 12px 30px rgba(0,0,0,.55);
-      transition: transform .15s ease, border-color .15s ease;
-    }
-    .pill:hover{
-      transform: translateY(-1px);
-      border-color: rgba(224,192,103,.55);
-    }
-
-    main{
-      position:relative;
-      z-index:2;
-      flex:1;
-      display:grid;
-      place-items:center;
-      padding:56px 18px 36px;
-    }
-
-    .center{
-      width:min(920px, 92vw);
-      text-align:center;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:22px;
-    }
-
-    /* Big emblem */
-    .emblem{
-      width:min(360px, 56vw);
-      height:auto;
-      display:block;
-
-      /* “pick-up-able” shadow under logo */
-      filter:
-        drop-shadow(0 26px 22px rgba(0,0,0,.75))
-        drop-shadow(0 10px 10px rgba(0,0,0,.55));
-    }
-
-    .tagline{
-      margin-top:6px;
-      font-family:"Cormorant Garamond", Garamond, Georgia, serif;
-      font-style:italic;
-      font-weight:500;
-      letter-spacing:.06em;
-      color: rgba(224,192,103,.88);
-      font-size: 20px;
-      text-shadow: 0 10px 26px rgba(0,0,0,.75);
-    }
-
-    /* Bottom “names” row (NOT clickable) */
-    footer{
-      position:relative;
-      z-index:2;
-      padding:18px 22px 24px;
-      border-top:1px solid rgba(255,255,255,.06);
-    }
-    .names{
-      display:flex;
-      justify-content:center;
-      gap:18px;
-      flex-wrap:wrap;
-      font-family:"Bodoni Moda","Didot","Bodoni 72","Times New Roman",serif;
-      text-transform:uppercase;
-      letter-spacing:.28em;
-      font-size:11px;
-      color: rgba(243,240,234,.55);
-      margin:0;
-      padding:0;
-      list-style:none;
-    }
-    .copyright{
-      margin-top:10px;
-      text-align:center;
-      font-family:"Bodoni Moda","Didot","Bodoni 72","Times New Roman",serif;
-      text-transform:uppercase;
-      letter-spacing:.22em;
-      font-size:10px;
-      color: rgba(243,240,234,.35);
-    }
-
-    /* Contact modal */
-    .modalOverlay{
-      position:fixed; inset:0;
-      z-index:50;
-      display:none;
-      place-items:center;
-      background: rgba(0,0,0,.72);
-      backdrop-filter: blur(6px);
-      padding:18px;
-    }
-    .modal{
-      width:min(620px, 96vw);
-      border-radius:18px;
-      border:1px solid rgba(201,162,74,.28);
-      background: rgba(5,5,5,.92);
-      box-shadow: 0 30px 90px rgba(0,0,0,.85);
-      overflow:hidden;
-    }
-    .modalHead{
-      padding:18px 18px 14px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      border-bottom:1px solid rgba(255,255,255,.06);
-    }
-    .modalTitle{
-      font-family:"Bodoni Moda","Didot","Bodoni 72","Times New Roman",serif;
-      text-transform:uppercase;
-      letter-spacing:.20em;
-      font-size:12px;
-      color: rgba(243,240,234,.85);
-    }
-    .closeBtn{
-      border:1px solid rgba(201,162,74,.25);
-      background:rgba(0,0,0,.25);
-      color:rgba(243,240,234,.85);
-      border-radius:12px;
-      padding:8px 10px;
-      cursor:pointer;
-      font-family:"Bodoni Moda","Didot","Bodoni 72","Times New Roman",serif;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      font-size:11px;
-    }
-
-    form{
-      padding:16px 18px 20px;
-      display:grid;
-      gap:12px;
-    }
-    label{
-      display:grid;
-      gap:6px;
-      text-align:left;
-      font-family:"Bodoni Moda","Didot","Bodoni 72","Times New Roman",serif;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      font-size:11px;
-      color: rgba(243,240,234,.70);
-    }
-    input, textarea{
-      width:100%;
-      padding:12px 12px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.25);
-      color: rgba(243,240,234,.92);
-      font-family: "Cormorant Garamond", Garamond, Georgia, serif;
-      font-size:16px;
-      outline:none;
-    }
-    textarea{min-height:140px; resize:vertical}
-    input:focus, textarea:focus{
-      border-color: rgba(224,192,103,.45);
-      box-shadow: 0 0 0 4px rgba(201,162,74,.08);
-    }
-
-    .formRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-      margin-top:6px;
-    }
-    .btn{
-      font-family:"Bodoni Moda","Didot","Bodoni 72","Times New Roman",serif;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      font-size:12px;
-      padding:11px 16px;
-      border-radius:999px;
-      border:1px solid rgba(201,162,74,.35);
-      background: rgba(0,0,0,.25);
-      color: rgba(243,240,234,.92);
-      cursor:pointer;
-      transition: transform .15s ease, border-color .15s ease;
-    }
-    .btn:hover{
-      transform: translateY(-1px);
-      border-color: rgba(224,192,103,.55);
-    }
-
-    /* “Message sent” view (same page) */
-    .sentView{
-      display:none;
-      min-height:calc(100vh - 120px);
-      place-items:center;
-      text-align:center;
-      padding:56px 18px;
-    }
-    .sentView.on{display:grid}
-    .sentTitle{
-      font-family:"Bodoni Moda","Didot","Bodoni 72","Times New Roman",serif;
-      text-transform:uppercase;
-      letter-spacing:.22em;
       font-size:26px;
-      margin:0 0 8px 0;
     }
-    .sentSub{
-      margin:0 0 18px 0;
+    p{
+      margin:0 0 18px;
+      color:rgba(202,165,75,.85);
       font-style:italic;
-      color: rgba(224,192,103,.85);
-      letter-spacing:.04em;
+      letter-spacing:.06em;
     }
-
-    /* Mobile tweaks */
-    @media (max-width:560px){
-      header{padding:18px 16px}
-      .wordmark{font-size:13px}
-      .phase{font-size:10px}
-      .pill{padding:9px 14px}
-      .tagline{font-size:18px}
-      .emblem{width:min(330px, 72vw)}
-      .names{gap:14px}
+    a{
+      display:inline-block;
+      text-decoration:none;
+      color:rgba(242,242,242,.9);
+      border:1px solid rgba(202,165,75,.35);
+      padding:12px 18px;
+      border-radius:999px;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      font-size:11px;
+      background:rgba(0,0,0,.35);
     }
   </style>
 </head>
-
 <body>
-  <div class="wrap" id="homeWrap">
-
-    <header>
-      <div class="brand" aria-label="Marieposa brand">
-        <div class="mark" aria-hidden="true">
-          <!-- MUST be logo.png -->
-          <img src="logo.png" alt="">
-        </div>
-        <div class="brandText">
-          <div class="wordmark">MARIEPOSA</div>
-          <div class="phase">FOUNDER PHASE</div>
-        </div>
-      </div>
-
-      <div class="actions">
-        <!-- Replace the href with your IG if you want -->
-        <a class="pill" href="https://www.instagram.com/mariepo.sa/" target="_blank" rel="noreferrer">Instagram</a>
-        <button class="pill" type="button" id="openContact">Contact</button>
-      </div>
-    </header>
-
-    <!-- HOME VIEW -->
-    <main id="homeMain">
-      <div class="center">
-        <!-- BIG emblem -->
-        <img class="emblem" src="logo.png" alt="Marieposa butterfly emblem">
-
-        <div class="tagline">Years of experience become tangible luxury.</div>
-      </div>
-    </main>
-
-    <footer>
-      <ul class="names" aria-label="Collection names">
-        <li>Misty</li>
-        <li>Nancy</li>
-        <li>Carol</li>
-        <li>Alicia</li>
-        <li>Debbie</li>
-        <li>Kimbarbie</li>
-      </ul>
-      <div class="copyright">© <span id="yr"></span> MARIEPOSA</div>
-    </footer>
-
-    <!-- MESSAGE SENT VIEW (same page, no broken flow) -->
-    <section class="sentView" id="sentView" aria-live="polite">
-      <div>
-        <h1 class="sentTitle">MESSAGE SENT</h1>
-        <p class="sentSub">Thank you. Your note has been received.</p>
-        <button class="btn" id="returnHome" type="button">Return</button>
-      </div>
-    </section>
-
+  <div class="box">
+    <h1>Message Sent</h1>
+    <p>Thank you. Your note has been received.</p>
+    <a href="/">Return</a>
   </div>
-
-  <!-- CONTACT MODAL -->
-  <div class="modalOverlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Contact Marieposa">
-    <div class="modal">
-      <div class="modalHead">
-        <div class="modalTitle">Contact</div>
-        <button class="closeBtn" type="button" id="closeContact">Close</button>
-      </div>
-
-      <!--
-        Netlify Forms (NO email is exposed to the visitor)
-        Submissions show up in Netlify Dashboard → Forms
-      -->
-      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?sent=1">
-        <input type="hidden" name="form-name" value="contact">
-
-        <!-- Honeypot (spam trap) -->
-        <p style="display:none;">
-          <label>Don’t fill this out: <input name="bot-field"></label>
-        </p>
-
-        <label>
-          Your email
-          <input name="email" type="email" autocomplete="email" required>
-        </label>
-
-        <label>
-          Subject
-          <input name="subject" type="text" required>
-        </label>
-
-        <label>
-          Message
-          <textarea name="message" required></textarea>
-        </label>
-
-        <div class="formRow">
-          <button class="btn" type="button" id="cancelContact">Cancel</button>
-          <button class="btn" type="submit">Send</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    // Year
-    document.getElementById("yr").textContent = new Date().getFullYear();
-
-    // Modal controls
-    const overlay = document.getElementById("modalOverlay");
-    const openBtn = document.getElementById("openContact");
-    const closeBtn = document.getElementById("closeContact");
-    const cancelBtn = document.getElementById("cancelContact");
-
-    function openModal(){
-      overlay.style.display = "grid";
-    }
-    function closeModal(){
-      overlay.style.display = "none";
-    }
-
-    openBtn.addEventListener("click", openModal);
-    closeBtn.addEventListener("click", closeModal);
-    cancelBtn.addEventListener("click", closeModal);
-
-    overlay.addEventListener("click", (e) => {
-      if (e.target === overlay) closeModal();
-    });
-
-    // “Message Sent” view (same page)
-    const params = new URLSearchParams(window.location.search);
-    const sent = params.get("sent");
-
-    const homeMain = document.getElementById("homeMain");
-    const sentView = document.getElementById("sentView");
-
-    function showSent(){
-      homeMain.style.display = "none";
-      sentView.classList.add("on");
-    }
-    function showHome(){
-      sentView.classList.remove("on");
-      homeMain.style.display = "grid";
-      // Remove ?sent=1 from URL
-      window.history.replaceState({}, document.title, "/");
-    }
-
-    if (sent === "1") {
-      closeModal();
-      showSent();
-    }
-
-    document.getElementById("returnHome").addEventListener("click", showHome);
-
-    // Esc key closes modal
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeModal();
-    });
-  </script>
 </body>
 </html>
