@@ -1,34 +1,390 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Marieposa</title>
-<style>
-body{
-background:#000;
-color:#fff;
-font-family:Didot, serif;
-display:flex;
-align-items:center;
-justify-content:center;
-height:100vh;
-margin:0;
-letter-spacing:2px;
-}
-.container{
-text-align:center;
-}
-.small{
-font-size:12px;
-opacity:.6;
-margin-top:10px;
-letter-spacing:3px;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MARIEPOSA — Founder Phase</title>
+  <meta name="description" content="MARIEPOSA — Founder Phase. A proven foundation, stepping into a new luxury light." />
+
+  <!-- Optional: nicer serif if available; falls back gracefully -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #070707;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --soft: rgba(255,255,255,.18);
+      --gold: #d9b66f;
+      --gold2:#f1dba6;
+      --shadow: 0 18px 50px rgba(0,0,0,.55);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      background: radial-gradient(1200px 700px at 20% 10%, rgba(217,182,111,.12), transparent 55%),
+                  radial-gradient(900px 700px at 80% 80%, rgba(241,219,166,.08), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    .wrap{
+      min-height: 100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 32px 18px;
+    }
+
+    .card{
+      width: min(980px, 100%);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .topline{
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(217,182,111,.65), transparent);
+      opacity:.9;
+    }
+
+    header{
+      display:flex;
+      gap: 26px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 26px 26px 0 26px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .logo{
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      flex: 0 0 auto;
+    }
+
+    .logo img{
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.55));
+    }
+
+    .brandtext{
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap: 2px;
+    }
+
+    .wordmark{
+      font-family: "Libre Baskerville", Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      letter-spacing: 3px;
+      font-size: 16px;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    .phase{
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .actions{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      appearance:none;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 13px;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      cursor:pointer;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(217,182,111,.35); }
+    .btn.primary{
+      border-color: rgba(217,182,111,.35);
+      background: linear-gradient(180deg, rgba(217,182,111,.16), rgba(255,255,255,.05));
+    }
+
+    .hero{
+      padding: 18px 26px 26px 26px;
+      display:grid;
+      grid-template-columns: 1.25fr .85fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 860px){
+      .hero{ grid-template-columns: 1fr; }
+      header{ align-items:flex-start; }
+      .actions{ justify-content:flex-start; }
+    }
+
+    .panel{
+      border-radius: calc(var(--radius) - 6px);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 18px;
+    }
+
+    .headline{
+      font-family: "Libre Baskerville", Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.14;
+      margin: 10px 0 10px;
+    }
+
+    .sub{
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+      max-width: 62ch;
+      margin: 0;
+    }
+
+    .micro{
+      margin-top: 14px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pill{
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.82);
+      letter-spacing: .3px;
+    }
+    .pill b{
+      color: var(--gold2);
+      font-weight: 600;
+    }
+
+    .formtitle{
+      font-family: "Libre Baskerville", Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 18px;
+      margin: 4px 0 10px;
+    }
+
+    form{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    label{
+      font-size: 12px;
+      color: rgba(255,255,255,.76);
+      letter-spacing: .4px;
+      text-transform: uppercase;
+    }
+
+    input, textarea{
+      width:100%;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+      padding: 12px 12px;
+      font-size: 14px;
+      outline: none;
+    }
+    input:focus, textarea:focus{
+      border-color: rgba(217,182,111,.45);
+      box-shadow: 0 0 0 3px rgba(217,182,111,.10);
+    }
+    textarea{ min-height: 110px; resize: vertical; }
+
+    .note{
+      font-size: 12px;
+      color: rgba(255,255,255,.62);
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    footer{
+      padding: 0 26px 22px 26px;
+      color: rgba(255,255,255,.55);
+      font-size: 12px;
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .toast{
+      display:none;
+      margin-top: 12px;
+      border: 1px solid rgba(217,182,111,.35);
+      background: rgba(217,182,111,.10);
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-size: 13px;
+      color: rgba(255,255,255,.88);
+    }
+  </style>
 </head>
+
 <body>
-<div class="container">
-<h1>MARIEPOSA</h1>
-<div class="small">FOUNDER PHASE</div>
-</div>
+  <div class="wrap">
+    <div class="card">
+      <div class="topline"></div>
+
+      <header>
+        <div class="brand">
+          <div class="logo" aria-label="MARIEPOSA logo">
+            <!-- Uses your uploaded file: logo.png in the repo root -->
+            <img src="logo.png" alt="MARIEPOSA" />
+          </div>
+          <div class="brandtext">
+            <div class="wordmark">MARIEPOSA</div>
+            <div class="phase">Founder Phase</div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <!-- IMPORTANT: replace the href with your real Instagram URL -->
+          <a class="btn" href="https://instagram.com/YOUR_HANDLE_HERE" target="_blank" rel="noopener">
+            Instagram ↗
+          </a>
+          <a class="btn primary" href="#contact">
+            Contact
+          </a>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="panel">
+          <div class="headline">A proven foundation, stepping into a new luxury light.</div>
+          <p class="sub">
+            MARIEPOSA begins with history: <strong>13 years of proven, scalable production experience</strong> —
+            refined through real-world fit, construction, and repeatable execution.
+            Now, the same foundation advances into an elevated luxury future.
+          </p>
+
+          <div class="micro" aria-label="Brand proof points">
+            <div class="pill"><b>13 Years</b> production experience</div>
+            <div class="pill"><b>Founder-Led</b> precision & fit</div>
+            <div class="pill"><b>Luxury</b> build standards</div>
+          </div>
+
+          <div class="toast" id="sentToast">
+            Thank you — your message was received.
+          </div>
+
+          <p class="note">
+            This is a minimalist founder placeholder — designed to feel expensive without revealing more than necessary.
+          </p>
+        </div>
+
+        <div class="panel" id="contact">
+          <div class="formtitle">Send a message</div>
+          <p class="sub" style="margin-bottom:10px;">
+            Leave your details below. Your message is submitted through the site — your email stays private, and
+            my email is not displayed.
+          </p>
+
+          <!-- NETLIFY FORMS (no email shown on the site) -->
+          <form name="marieposa-contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?sent=1">
+            <!-- required hidden input for Netlify Forms -->
+            <input type="hidden" name="form-name" value="marieposa-contact" />
+            <!-- honeypot field (spam protection) -->
+            <p style="display:none;">
+              <label>Don’t fill this out: <input name="bot-field" /></label>
+            </p>
+
+            <div>
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+
+            <div>
+              <label for="email">Your Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+
+            <div>
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+
+            <button class="btn primary" type="submit">Send message</button>
+
+            <p class="note">
+              Messages are captured securely in Netlify. You can later enable notifications without publishing your email.
+            </p>
+          </form>
+        </div>
+      </section>
+
+      <footer>
+        <div>© <span id="year"></span> MARIEPOSA</div>
+        <div style="opacity:.9;">Minimal founder presence • evolving quietly</div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // show success toast after redirect
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("sent") === "1") {
+      const toast = document.getElementById("sentToast");
+      toast.style.display = "block";
+      // clean the URL (optional)
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  </script>
 </body>
 </html>
