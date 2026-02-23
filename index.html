@@ -1,183 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MARIEPOSA — Founder Phase</title>
 
 <style>
-  :root{
-    --gold1:#f8e8b0;
-    --gold2:#c9a24a;
-    --gold3:#8a6a22;
-    --text:#eee;
-    --bg:#000;
-  }
+:root{
+  --gold1:#f8e8b0;
+  --gold2:#c9a24a;
+  --gold3:#8a6a22;
+  --text:#eee;
+  --bg:#000;
+}
 
-  *{ box-sizing:border-box; }
+body{
+  margin:0;
+  background:#000;
+  color:var(--text);
+  font-family:"Times New Roman", serif;
+  overflow-x:hidden;
+}
 
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:"Times New Roman", serif;
-    overflow-x:hidden;
-  }
+/* deep spotlight */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 50% 38%,
+      rgba(201,162,74,0.22) 0%,
+      rgba(0,0,0,0.75) 42%,
+      rgba(0,0,0,0.97) 72%,
+      #000 100%);
+  z-index:-2;
+}
 
-  /* DEEP BLACK + GOLD SPOTLIGHT (less brown) */
-  body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-      radial-gradient(circle at 50% 38%,
-        rgba(201,162,74,0.22) 0%,
-        rgba(0,0,0,0.75) 42%,
-        rgba(0,0,0,0.97) 72%,
-        #000 100%);
-    z-index:-2;
-  }
+/* texture */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+  opacity:0.14;
+  z-index:-1;
+}
 
-  /* subtle texture */
-  body::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    background-image:url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
-    opacity:0.14;
-    z-index:-1;
-    pointer-events:none;
-  }
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:26px 34px;
+}
 
-  header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:26px 34px;
-    gap:16px;
-  }
+.brand{
+  letter-spacing:6px;
+  font-size:18px;
+}
+.brand small{
+  display:block;
+  font-size:11px;
+  letter-spacing:6px;
+  opacity:0.75;
+  margin-top:7px;
+}
 
-  .brand{
-    letter-spacing:6px;
-    font-size:18px;
-    line-height:1.1;
-    white-space:nowrap;
-  }
-  .brand small{
-    display:block;
-    font-size:11px;
-    letter-spacing:6px;
-    opacity:0.75;
-    margin-top:7px;
-  }
+nav a{
+  color:var(--text);
+  text-decoration:none;
+  border:1px solid rgba(201,162,74,0.55);
+  padding:10px 18px;
+  border-radius:999px;
+  font-size:12px;
+  letter-spacing:3px;
+  margin-left:10px;
+  cursor:pointer;
+}
 
-  nav{
-    display:flex;
-    gap:10px;
-    align-items:center;
-  }
+nav a:hover{
+  background:rgba(201,162,74,0.16);
+}
 
-  nav a{
-    color:var(--text);
-    text-decoration:none;
-    border:1px solid rgba(201,162,74,0.55);
-    padding:10px 18px;
-    border-radius:999px;
-    font-size:12px;
-    letter-spacing:3px;
-    transition:0.25s;
-  }
-  nav a:hover{
-    background:rgba(201,162,74,0.16);
-  }
+main{
+  text-align:center;
+  padding:100px 16px 0;
+}
 
-  main{
-    text-align:center;
-    padding:92px 16px 0;
-  }
+.logo{
+  width:440px;
+  max-width:86vw;
+  filter:
+    drop-shadow(0 22px 40px rgba(0,0,0,0.80))
+    drop-shadow(0 70px 160px rgba(0,0,0,0.95));
+}
 
-  /* KEEP LOGO LARGE + HEAVY DEPTH SHADOW */
-  .logo{
-    width:440px;
-    max-width:86vw;
-    filter:
-      drop-shadow(0 22px 40px rgba(0,0,0,0.80))
-      drop-shadow(0 70px 160px rgba(0,0,0,0.95));
-  }
+.tagline{
+  margin-top:34px;
+  font-size:20px;
+  font-style:italic;
+  letter-spacing:2px;
+  background:linear-gradient(90deg,var(--gold1),var(--gold2),var(--gold3));
+  -webkit-background-clip:text;
+  color:transparent;
+}
 
-  .tagline{
-    margin-top:34px;
-    font-size:20px;
-    font-style:italic;
-    letter-spacing:2px;
-    background:linear-gradient(90deg,var(--gold1),var(--gold2),var(--gold3));
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
+footer{
+  text-align:center;
+  margin-top:120px;
+  padding:0 16px 42px;
+  font-size:11px;
+  letter-spacing:6px;
+  opacity:0.72;
+}
 
-  /* shoes list */
-  footer{
-    text-align:center;
-    margin-top:120px;
-    padding:0 16px 42px;
-    font-size:11px;
-    letter-spacing:6px;
-    opacity:0.72;
-  }
+/* modal */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  justify-content:center;
+  align-items:center;
+}
 
-  /* SIMPLE CONTACT (ON SAME PAGE) */
-  .contact{
-    margin-top:62px;
-    display:flex;
-    justify-content:center;
-  }
+.modal-content{
+  background:#0b0b0b;
+  padding:30px;
+  border-radius:12px;
+  width:320px;
+  border:1px solid rgba(201,162,74,0.4);
+}
 
-  form{
-    width:320px;
-    max-width:92vw;
-  }
+input, textarea{
+  width:100%;
+  background:#111;
+  border:1px solid rgba(201,162,74,0.4);
+  color:var(--text);
+  padding:12px;
+  margin:10px 0;
+  border-radius:8px;
+  font-family:inherit;
+}
 
-  input, textarea{
-    width:100%;
-    background:#0b0b0b;
-    border:1px solid rgba(201,162,74,0.40);
-    color:var(--text);
-    padding:12px 12px;
-    margin:10px 0;
-    border-radius:8px;
-    font-family:inherit;
-    letter-spacing:1px;
-  }
+textarea{
+  height:90px;
+  resize:none;
+}
 
-  textarea{
-    height:100px;
-    resize:none;
-  }
+button{
+  width:100%;
+  background:transparent;
+  border:1px solid rgba(201,162,74,0.6);
+  color:var(--text);
+  padding:12px;
+  border-radius:999px;
+  letter-spacing:3px;
+  cursor:pointer;
+}
 
-  button{
-    width:100%;
-    background:transparent;
-    border:1px solid rgba(201,162,74,0.60);
-    color:var(--text);
-    padding:12px 18px;
-    border-radius:999px;
-    letter-spacing:3px;
-    cursor:pointer;
-    transition:0.25s;
-  }
-  button:hover{
-    background:rgba(201,162,74,0.18);
-  }
-
-  /* mobile header wrap */
-  @media (max-width: 720px){
-    header{
-      flex-direction:column;
-      align-items:flex-start;
-    }
-    nav{ width:100%; }
-  }
+.close{
+  text-align:right;
+  cursor:pointer;
+  font-size:12px;
+  opacity:0.6;
+}
+.close:hover{opacity:1;}
 </style>
 </head>
 
@@ -190,33 +177,15 @@
   </div>
 
   <nav>
-    <a href="https://instagram.com/mariepo.sa" target="_blank" rel="noopener">INSTAGRAM</a>
-    <a href="#contact">CONTACT</a>
+    <a href="https://instagram.com/mariepo.sa" target="_blank">INSTAGRAM</a>
+    <a onclick="openModal()">CONTACT</a>
   </nav>
 </header>
 
 <main>
-  <!-- must be exactly logo.png in the same folder as index.html -->
-  <img src="logo.png" class="logo" alt="Marieposa logo" />
-
+  <img src="logo.png" class="logo">
   <div class="tagline">
     Years of experience become tangible luxury
-  </div>
-
-  <!-- contact section (same page) -->
-  <div class="contact" id="contact">
-    <form action="https://formsubmit.co/marieposa.studio@gmail.com" method="POST">
-      <!-- keeps your email hidden from the public -->
-      <input type="hidden" name="_captcha" value="false" />
-      <input type="hidden" name="_subject" value="Marieposa — New Inquiry" />
-      <input type="hidden" name="_template" value="table" />
-
-      <input type="text" name="name" placeholder="NAME" required />
-      <input type="email" name="email" placeholder="EMAIL" required />
-      <textarea name="message" placeholder="MESSAGE" required></textarea>
-
-      <button type="submit">SEND</button>
-    </form>
   </div>
 </main>
 
@@ -225,6 +194,31 @@
   <br><br>
   © 2026 MARIEPOSA
 </footer>
+
+<!-- Modal -->
+<div class="modal" id="contactModal">
+  <div class="modal-content">
+    <div class="close" onclick="closeModal()">CLOSE</div>
+
+    <form action="https://formsubmit.co/marieposa.studio.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="text" name="name" placeholder="NAME" required>
+      <input type="email" name="email" placeholder="EMAIL" required>
+      <textarea name="message" placeholder="MESSAGE" required></textarea>
+      <button type="submit">SEND</button>
+    </form>
+
+  </div>
+</div>
+
+<script>
+function openModal(){
+  document.getElementById("contactModal").style.display="flex";
+}
+function closeModal(){
+  document.getElementById("contactModal").style.display="none";
+}
+</script>
 
 </body>
 </html>
