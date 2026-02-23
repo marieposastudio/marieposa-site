@@ -4,41 +4,52 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>MARIEPOSA</title>
-  <meta name="description" content="Marieposa — luxury footwear engineered for D-width." />
+  <meta name="description" content="MARIEPOSA — Founder Phase." />
 
   <style>
     :root{
-      /* Marieposa minimal luxury */
-      --bg: #FBF7EF;         /* warm cream */
-      --ink: #0B0B0B;        /* near-black */
-      --muted: rgba(11,11,11,.62);
-      --hair: rgba(11,11,11,.10);
-      --card: rgba(255,255,255,.55);
-      --gold: #C8A24B;       /* soft gold */
+      --bg:#0a0605;                 /* deep espresso */
+      --bg2:#120907;                /* richer espresso */
+      --ink:#F5F0E8;                /* warm ivory */
+      --muted:rgba(245,240,232,.60);
+      --hair:rgba(245,240,232,.12);
+      --gold:#C8A24B;               /* soft gold */
+      --gold2:rgba(200,162,75,.22);
+      --card:rgba(245,240,232,.06);
     }
 
-    *{ box-sizing:border-box; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      background: var(--bg);
-      color: var(--ink);
+      background:
+        radial-gradient(1100px 700px at 50% 12%, rgba(200,162,75,.12), transparent 55%),
+        radial-gradient(900px 600px at 20% 88%, rgba(245,240,232,.05), transparent 60%),
+        linear-gradient(180deg, var(--bg2), var(--bg));
+      color:var(--ink);
       font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
       letter-spacing:.2px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
-    a{ color:inherit; }
+
+    a{color:inherit;text-decoration:none}
     .wrap{
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 56px 18px 72px;
+      max-width:980px;
+      margin:0 auto;
+      padding:34px 18px 30px;
+      min-height:100%;
+      display:flex;
+      flex-direction:column;
     }
 
     header{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:16px;
-      padding: 14px 0 18px;
-      border-bottom: 1px solid var(--hair);
+      gap:14px;
+      padding:10px 0 18px;
+      border-bottom:1px solid var(--hair);
     }
 
     .brand{
@@ -48,19 +59,20 @@
       min-width:0;
     }
 
+    /* Butterfly logo container (shows your gold butterfly) */
     .logoBox{
-      width:46px;
-      height:46px;
+      width:46px;height:46px;
       border-radius:18px;
-      border:1px solid var(--hair);
-      background: rgba(255,255,255,.55);
-      display:grid;
-      place-items:center;
+      border:1px solid var(--gold2);
+      background: rgba(245,240,232,.05);
+      display:grid;place-items:center;
       overflow:hidden;
+      box-shadow:
+        0 0 0 1px rgba(200,162,75,.06) inset,
+        0 10px 30px rgba(0,0,0,.28);
     }
     .logoBox img{
-      width:100%;
-      height:100%;
+      width:100%;height:100%;
       object-fit:contain;
       padding:6px;
       display:block;
@@ -72,207 +84,118 @@
       gap:4px;
       min-width:0;
     }
-    .wordmark .name{
-      font-size: 16px;
-      letter-spacing: .34em;
-      font-weight: 700;
+    .name{
+      font-size:14px;
+      letter-spacing:.36em;
+      font-weight:700;
       white-space:nowrap;
     }
-    .wordmark .phase{
+    .phase{
       font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-      font-size: 11px;
-      letter-spacing: .28em;
-      text-transform: uppercase;
-      color: var(--muted);
+      font-size:10px;
+      letter-spacing:.30em;
+      text-transform:uppercase;
+      color:var(--muted);
       white-space:nowrap;
     }
 
-    nav{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
+    nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
     .btn{
       font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-      font-size: 12px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      text-decoration:none;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(11,11,11,.12);
-      background: rgba(255,255,255,.55);
-      color: rgba(11,11,11,.82);
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
+      font-size:11px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--hair);
+      background: rgba(245,240,232,.05);
+      color: rgba(245,240,232,.86);
     }
-    .btn:hover{ border-color: rgba(11,11,11,.22); }
+    .btn:hover{border-color:rgba(245,240,232,.22)}
     .btn.primary{
-      background: var(--ink);
-      color: var(--bg);
-      border-color: transparent;
+      border-color: rgba(200,162,75,.40);
+      background: rgba(200,162,75,.12);
+      color: rgba(245,240,232,.92);
+      box-shadow: 0 0 0 1px rgba(200,162,75,.06) inset;
     }
-    .btn.primary:hover{ opacity:.92; }
+    .btn.primary:hover{border-color:rgba(200,162,75,.60)}
 
-    .arrow{
-      width:14px;height:14px;display:inline-block;
-      transform:translateY(1px);
-    }
-
-    main{ padding-top: 34px; }
-
-    .kicker{
-      font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-      font-size: 11px;
-      letter-spacing: .28em;
-      text-transform: uppercase;
-      color: var(--muted);
+    main{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:56px 0 44px;
     }
 
-    h1{
-      margin: 14px 0 10px;
+    .center{
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 6px;
+    }
+
+    /* Big, minimal, mysterious */
+    .heroMark{
       font-size: 52px;
-      line-height: 1.03;
-      letter-spacing: -.02em;
+      line-height: 1.02;
+      letter-spacing: .18em;
       font-weight: 650;
+      margin: 0 0 14px;
     }
 
-    .sub{
-      margin: 0;
-      max-width: 70ch;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-      font-size: 16px;
-      line-height: 1.75;
-      color: rgba(11,11,11,.72);
-      letter-spacing: 0;
-    }
-
-    .pills{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-top: 16px;
-    }
-    .pill{
-      font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-      border: 1px solid var(--hair);
-      background: rgba(255,255,255,.55);
-      border-radius: 999px;
-      padding: 7px 11px;
-      font-size: 11px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(11,11,11,.74);
-    }
-    .pill.gold{
-      border-color: rgba(200,162,75,.55);
-      box-shadow: 0 0 0 1px rgba(200,162,75,.08) inset;
-    }
-
-    .divider{
-      margin: 28px 0;
+    .line{
+      width: 120px;
       height: 1px;
-      background: linear-gradient(to right, transparent, var(--hair), transparent);
+      background: linear-gradient(to right, transparent, rgba(200,162,75,.65), transparent);
+      margin: 18px auto 18px;
     }
 
-    .experience{
+    .tag{
       font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
       font-size: 13px;
-      line-height: 1.75;
-      color: rgba(11,11,11,.70);
-      max-width: 78ch;
-      letter-spacing: 0;
+      line-height: 1.7;
+      letter-spacing: .02em;
+      color: rgba(245,240,232,.74);
+      margin: 0;
     }
-    .experience strong{
-      color: var(--ink);
-      font-weight: 700;
-    }
-    .goldDot{
-      color: var(--gold);
-      font-weight: 900;
-    }
-
-    .sectionTitle{
-      margin-top: 34px;
-      margin-bottom: 14px;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-      font-size: 12px;
-      letter-spacing: .28em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-    }
-
-    .card{
-      border: 1px solid var(--hair);
-      background: var(--card);
-      border-radius: 22px;
-      padding: 18px 16px;
-      min-height: 92px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-    }
-
-    .card .name{
-      font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-      font-size: 13px;
-      letter-spacing: .24em;
-      text-transform: uppercase;
-      font-weight: 750;
-    }
-
-    .card .meta{
-      margin-top: 10px;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-      font-size: 12px;
-      line-height: 1.6;
-      color: rgba(11,11,11,.58);
-      letter-spacing: 0;
-    }
-
-    .contactRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .contactPill{
-      font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-      font-size: 12px;
-      padding: 12px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(11,11,11,.12);
-      background: rgba(255,255,255,.55);
-      text-decoration:none;
-      color: rgba(11,11,11,.80);
-      letter-spacing: 0;
-    }
+    .gold{color: var(--gold)}
 
     footer{
-      margin-top: 44px;
-      padding-top: 18px;
-      border-top: 1px solid var(--hair);
+      border-top:1px solid var(--hair);
+      padding-top:18px;
       display:flex;
-      justify-content:space-between;
+      flex-direction:column;
       gap:12px;
+      align-items:center;
+      text-align:center;
+    }
+
+    .names{
+      display:flex;
       flex-wrap:wrap;
+      justify-content:center;
+      gap:12px 18px;
       font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
       font-size: 11px;
-      letter-spacing: .20em;
+      letter-spacing: .26em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: rgba(245,240,232,.60);
+      padding: 4px 0 10px;
     }
-    footer a{ text-decoration:none; }
+    .names span{white-space:nowrap}
 
-    @media (max-width: 560px){
-      h1{ font-size: 40px; }
+    .fine{
+      font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+      font-size: 10px;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.48);
+      padding-bottom: 6px;
+    }
+
+    @media (max-width:560px){
+      .heroMark{font-size:40px}
     }
   </style>
 </head>
@@ -283,8 +206,8 @@
     <header>
       <div class="brand">
         <div class="logoBox">
-          <!-- must match your repo filename exactly -->
-          <img src="./logo.png" alt="MARIEPOSA logo" />
+          <!-- Must match your repo file name exactly -->
+          <img src="./logo.png" alt="MARIEPOSA butterfly logo" />
         </div>
         <div class="wordmark">
           <div class="name">MARIEPOSA</div>
@@ -295,74 +218,33 @@
       <nav>
         <a class="btn" href="https://www.instagram.com/mariepo.sa?igsh=NTc4MTIwNjQ2YQ==" target="_blank" rel="noreferrer">
           Instagram
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M5 12h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
         </a>
-
-        <a class="btn primary" href="mailto:marieposa.studio@gmail.com?subject=Marieposa%20Inquiry">
+        <a class="btn primary" href="mailto:marieposa.studio@gmail.com?subject=Marieposa%20Inquiry" aria-label="Email Marieposa">
           Contact
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M5 12h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
         </a>
       </nav>
     </header>
 
     <main>
-      <div class="kicker">D-WIDTH LUXURY <span class="goldDot">•</span> LIMITED RUNS</div>
-
-      <h1>Wouldn’t you rather have a shoe that fits?</h1>
-
-      <p class="sub">
-        Luxury footwear designed for D-width. Minimal. Precise. Runway-ready.
-      </p>
-
-      <div class="pills">
-        <span class="pill gold">Gold butterfly signature</span>
-        <span class="pill">9mm padding standard</span>
-        <span class="pill">Swarovski detail</span>
-        <span class="pill">D-width engineered</span>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="experience">
-        <strong>13+ years of experience</strong> — realized. Experience becomes luxury, tangible luxury.
-      </div>
-
-      <div class="sectionTitle">Collection</div>
-
-      <div class="grid" aria-label="Marieposa styles">
-        <div class="card"><div class="name">Misty</div><div class="meta">Signature</div></div>
-        <div class="card"><div class="name">Nancy</div><div class="meta">Signature</div></div>
-        <div class="card"><div class="name">Alicia</div><div class="meta">Essential</div></div>
-        <div class="card"><div class="name">Carol</div><div class="meta">Statement</div></div>
-        <div class="card"><div class="name">Debbie</div><div class="meta">Everyday</div></div>
-        <div class="card"><div class="name">Kimbarbie</div><div class="meta">Everyday</div></div>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="sectionTitle">Reach Us</div>
-
-      <div class="contactRow">
-        <a class="contactPill" href="https://www.instagram.com/mariepo.sa?igsh=NTc4MTIwNjQ2YQ==" target="_blank" rel="noreferrer">
-          Instagram: @mariepo.sa
-        </a>
-        <a class="contactPill" href="mailto:marieposa.studio@gmail.com?subject=Marieposa%20Inquiry">
-          marieposa.studio@gmail.com
-        </a>
+      <div class="center">
+        <div class="heroMark">MARIEPOSA</div>
+        <div class="line"></div>
+        <p class="tag">
+          <span class="gold">Years of experience</span> become tangible luxury.
+        </p>
       </div>
     </main>
 
     <footer>
-      <div>© <span id="y"></span> MARIEPOSA</div>
-      <div>
-        <a href="https://www.instagram.com/mariepo.sa?igsh=NTc4MTIwNjQ2YQ==" target="_blank" rel="noreferrer">Instagram</a>
-        &nbsp;•&nbsp;
-        <a href="mailto:marieposa.studio@gmail.com?subject=Marieposa%20Inquiry">Email</a>
+      <div class="names" aria-label="Names">
+        <span>Misty</span>
+        <span>Nancy</span>
+        <span>Carol</span>
+        <span>Alicia</span>
+        <span>Debbie</span>
+        <span>Kimbarbie</span>
       </div>
+      <div class="fine">© <span id="y"></span> MARIEPOSA</div>
     </footer>
 
   </div>
