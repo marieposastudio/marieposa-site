@@ -2,427 +2,342 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MARIEPOSA</title>
   <meta name="description" content="MARIEPOSA — Founder Phase." />
 
-  <!-- Elegant script for the tagline -->
+  <!-- Fonts: luxury serif + readable elegant script -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Imperial+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --espresso:#070403;
-      --espresso2:#0d0706;
-      --gold:#c8a24b;
-      --gold2:#e1c77a;
-      --ivory:rgba(255,245,230,.92);
-      --muted:rgba(255,245,230,.62);
-      --hair:rgba(255,245,230,.10);
+      /* Espresso + gold */
+      --espresso:#070605;               /* near-black espresso */
+      --espresso2:#0f0b08;
+      --gold:#d7b86a;                   /* warm gold */
+      --gold2:#b99443;                  /* deeper gold */
+      --cream:#f4efe5;                  /* soft warm highlight */
+      --muted:rgba(244,239,229,.72);
+      --line:rgba(215,184,106,.18);
+      --hair:rgba(244,239,229,.08);
+      --shadow:rgba(0,0,0,.65);
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
-      color:var(--ivory);
-      background:
-        radial-gradient(900px 520px at 50% 26%, rgba(200,162,75,.22), transparent 62%),
-        radial-gradient(1100px 760px at 50% 60%, rgba(0,0,0,.0), rgba(0,0,0,.52) 70%, rgba(0,0,0,.72)),
-        linear-gradient(180deg, var(--espresso2), var(--espresso));
-      font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
-      letter-spacing:.12em;
+      background: var(--espresso);
+      color: var(--cream);
+      font-family: "Playfair Display", Didot, "Bodoni MT", "Times New Roman", serif;
+      letter-spacing:.02em;
       overflow-x:hidden;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
     }
 
-    /* IG-like depth: grain + vignette + soft highlight */
-    body:before{
-      content:"";
-      position:fixed; inset:0;
-      pointer-events:none;
+    /* --- TEXTURED BACKGROUND LAYERS --- */
+    .bg{
+      position:fixed;
+      inset:0;
+      z-index:-2;
       background:
-        radial-gradient(1200px 820px at 50% 30%, rgba(255,245,230,.06), transparent 55%),
-        radial-gradient(1200px 900px at 50% 55%, rgba(0,0,0,.0), rgba(0,0,0,.55) 70%, rgba(0,0,0,.78)),
-        repeating-linear-gradient(135deg,
-          rgba(255,255,255,.018) 0px,
-          rgba(255,255,255,.018) 2px,
-          rgba(0,0,0,.020) 6px,
-          rgba(0,0,0,.020) 10px
-        );
-      mix-blend-mode: soft-light;
-      opacity:.72;
+        radial-gradient(1200px 800px at 50% 40%, rgba(215,184,106,.08), transparent 55%),
+        radial-gradient(900px 700px at 30% 55%, rgba(255,255,255,.05), transparent 60%),
+        radial-gradient(1100px 900px at 70% 60%, rgba(0,0,0,.55), transparent 60%),
+        linear-gradient(180deg, var(--espresso2), var(--espresso));
     }
 
-    /* extra “velvet” haze */
-    body:after{
+    /* Add a stronger leather-like texture:
+       If you upload a file named texture.jpg into the repo root,
+       this layer will pick it up automatically. */
+    .bg::before{
       content:"";
-      position:fixed; inset:-20%;
+      position:absolute;
+      inset:-20%;
+      background-image:
+        url("texture.jpg");
+      background-size:cover;
+      background-position:center;
+      opacity:.46;                /* strong texture */
+      filter: contrast(1.12) saturate(.85) brightness(.68);
+      mix-blend-mode: multiply;   /* makes it feel like leather */
+      transform: rotate(-1deg) scale(1.05);
       pointer-events:none;
+    }
+
+    /* Fallback micro-noise (still works if texture.jpg is not present) */
+    .bg::after{
+      content:"";
+      position:absolute;
+      inset:0;
       background:
-        radial-gradient(circle at 40% 35%, rgba(200,162,75,.10), transparent 55%),
-        radial-gradient(circle at 60% 40%, rgba(225,199,122,.06), transparent 60%);
-      filter: blur(18px);
+        repeating-radial-gradient(circle at 20% 30%,
+          rgba(255,255,255,.020) 0px,
+          rgba(255,255,255,.020) 1px,
+          rgba(0,0,0,0) 2px,
+          rgba(0,0,0,0) 4px);
       opacity:.55;
+      mix-blend-mode: overlay;
+      filter: blur(.15px);
+      pointer-events:none;
     }
 
-    a{color:inherit; text-decoration:none}
-
+    /* --- LAYOUT --- */
     .wrap{
       min-height:100vh;
       display:flex;
       flex-direction:column;
-      padding:28px 22px;
-      position:relative;
-      z-index:1;
     }
 
     header{
+      padding:24px 28px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+    }
+
+    .brandlock{
       display:flex;
       align-items:center;
-      justify-content:space-between;
-      gap:16px;
+      gap:12px;
+      min-width:220px;
     }
 
     .mark{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      min-width: 220px;
-    }
-
-    .seal{
-      width:44px; height:44px;
+      width:40px;
+      height:40px;
       border-radius:999px;
-      border:1px solid rgba(200,162,75,.35);
-      background: radial-gradient(circle at 30% 30%, rgba(225,199,122,.16), rgba(0,0,0,.10));
+      border:1px solid rgba(215,184,106,.22);
+      background: rgba(0,0,0,.20);
       display:grid;
       place-items:center;
-      box-shadow: 0 14px 34px rgba(0,0,0,.45);
+      box-shadow: 0 12px 28px rgba(0,0,0,.35);
       overflow:hidden;
     }
-    .seal img{
-      width:26px; height:26px;
-      object-fit:contain;
-      filter: drop-shadow(0 10px 14px rgba(0,0,0,.65));
+    .mark img{
+      width:22px;
+      height:auto;
+      display:block;
+      filter: drop-shadow(0 10px 12px rgba(0,0,0,.45));
+      opacity:.95;
     }
 
-    .brand{
+    .brandtext{
       display:flex;
       flex-direction:column;
-      gap:4px;
+      gap:2px;
       line-height:1;
     }
-    .brand .name{
-      font-size:12px;
+    .brandtext .name{
+      font-size:15px;
       letter-spacing:.34em;
-      font-family: "Italiana", ui-serif, Georgia, serif;
-    }
-    .brand .phase{
-      font-size:10px;
-      letter-spacing:.36em;
-      color:var(--muted);
       text-transform:uppercase;
+      color: rgba(244,239,229,.92);
+    }
+    .brandtext .phase{
+      font-size:11px; /* more readable */
+      letter-spacing:.32em;
+      text-transform:uppercase;
+      color: rgba(215,184,106,.72);
     }
 
     .nav{
       display:flex;
-      align-items:center;
       gap:10px;
+      align-items:center;
     }
+
     .pill{
+      appearance:none;
+      border:1px solid rgba(215,184,106,.28);
+      background: rgba(0,0,0,.20);
+      color: rgba(244,239,229,.86);
       padding:10px 14px;
       border-radius:999px;
-      border:1px solid rgba(200,162,75,.28);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,245,230,.82);
-      font-size:11px;
-      letter-spacing:.22em;
+      text-decoration:none;
+      font-size:12px;
+      letter-spacing:.18em;
       text-transform:uppercase;
       transition: transform .15s ease, border-color .15s ease, background .15s ease;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      box-shadow: 0 14px 28px rgba(0,0,0,.25);
       cursor:pointer;
     }
     .pill:hover{
       transform: translateY(-1px);
-      border-color: rgba(200,162,75,.55);
+      border-color: rgba(215,184,106,.45);
       background: rgba(0,0,0,.28);
     }
 
     .rule{
       height:1px;
       background: linear-gradient(90deg, transparent, var(--hair), transparent);
-      margin:18px 0 0;
+      margin: 0 28px;
     }
 
     main{
       flex:1;
       display:grid;
       place-items:center;
-      padding:36px 0 24px;
+      padding: 34px 22px 18px;
       text-align:center;
     }
 
     .hero{
+      width:min(900px, 92vw);
       display:flex;
       flex-direction:column;
       align-items:center;
-      gap:14px; /* tighter */
-      max-width: 860px;
-      width:100%;
+      gap:18px;
     }
 
-    .logo{
-      width:min(560px, 84vw);
+    .emblem{
+      width:min(420px, 70vw);
+      max-width:520px;
       height:auto;
       display:block;
       filter:
-        drop-shadow(0 26px 60px rgba(0,0,0,.65))
-        drop-shadow(0 0 26px rgba(200,162,75,.14));
-      opacity:.99;
+        drop-shadow(0 30px 55px rgba(0,0,0,.75))
+        drop-shadow(0 10px 18px rgba(215,184,106,.18));
+      opacity:.98;
+      transform: translateZ(0);
     }
 
-    /* More elegant, cursive, closer */
     .tagline{
-      margin-top:-6px;
-      font-family: "Imperial Script", cursive;
-      font-size:28px;
+      font-family: "Allura", cursive;
+      font-size: clamp(20px, 2.4vw, 32px);
+      color: rgba(215,184,106,.88);
       letter-spacing:.02em;
-      color: rgba(225,199,122,.80);
-      text-transform:none;
+      text-shadow: 0 1px 0 rgba(0,0,0,.35);
+      margin-top:-6px;
+    }
+
+    .tagline::before{
+      content:"";
+      display:block;
+      width: 70px;
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(215,184,106,.42), transparent);
+      margin: 0 auto 10px;
     }
 
     footer{
-      margin-top:auto;
-      padding-top:18px;
-      border-top:1px solid rgba(255,245,230,.06);
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      align-items:center;
+      padding: 18px 22px 28px;
       text-align:center;
+      color: rgba(244,239,229,.62);
     }
 
     .names{
-      font-size:11px;
-      color: rgba(255,245,230,.55);
-      letter-spacing:.30em;
-      text-transform:uppercase;
       display:flex;
-      flex-wrap:wrap;
       justify-content:center;
-      gap:14px;
+      gap:22px;
+      flex-wrap:wrap;
+      font-size:11px;
+      letter-spacing:.28em;
+      text-transform:uppercase;
+      color: rgba(244,239,229,.55);
+      margin-bottom:10px;
     }
 
-    .tiny{
-      font-size:10px;
-      color: rgba(255,245,230,.35);
-      letter-spacing:.26em;
+    .copyright{
+      font-size:11px;
+      letter-spacing:.14em;
+      color: rgba(244,239,229,.35);
       text-transform:uppercase;
     }
 
-    /* Contact modal */
-    .modalOverlay{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.65);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      z-index:10;
-    }
+    /* --- CONTACT MODAL (no email exposed) --- */
     .modal{
-      width:min(520px, 96vw);
-      border-radius:18px;
-      border:1px solid rgba(200,162,75,.28);
-      background:
-        radial-gradient(900px 520px at 50% 0%, rgba(200,162,75,.16), transparent 60%),
-        rgba(6,4,3,.92);
-      box-shadow: 0 30px 80px rgba(0,0,0,.70);
-      padding:18px 18px 16px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      position:fixed;
+      inset:0;
+      display:none;
+      place-items:center;
+      padding: 22px;
+      background: rgba(0,0,0,.62);
+      backdrop-filter: blur(6px);
+      z-index:50;
     }
-    .modalHeader{
+    .modal[aria-hidden="false"]{ display:grid; }
+
+    .panel{
+      width:min(560px, 92vw);
+      border-radius:18px;
+      border:1px solid rgba(215,184,106,.22);
+      background:
+        radial-gradient(1200px 500px at 50% 0%, rgba(215,184,106,.10), transparent 55%),
+        rgba(6,5,4,.92);
+      box-shadow: 0 40px 90px rgba(0,0,0,.75);
+      overflow:hidden;
+    }
+    .panelHead{
+      padding:16px 18px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      margin-bottom:10px;
+      border-bottom:1px solid rgba(244,239,229,.08);
     }
-    .modalTitle{
-      font-family:"Italiana", ui-serif, Georgia, serif;
-      letter-spacing:.22em;
-      text-transform:uppercase;
+    .panelHead .title{
       font-size:12px;
-      color: rgba(255,245,230,.85);
+      letter-spacing:.26em;
+      text-transform:uppercase;
+      color: rgba(244,239,229,.82);
     }
-    .closeBtn{
-      width:34px; height:34px;
+    .x{
+      border:1px solid rgba(215,184,106,.24);
+      background: rgba(0,0,0,.25);
+      color: rgba(244,239,229,.80);
       border-radius:999px;
-      border:1px solid rgba(255,245,230,.14);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,245,230,.80);
+      width:38px;
+      height:38px;
       cursor:pointer;
-      display:grid;
-      place-items:center;
     }
-    .closeBtn:hover{ border-color: rgba(200,162,75,.50); }
-
-    form{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      margin-top:10px;
+    .panelBody{
+      padding:18px;
     }
     label{
-      font-size:10px;
-      letter-spacing:.22em;
+      display:block;
+      font-size:11px;
+      letter-spacing:.18em;
       text-transform:uppercase;
-      color: rgba(255,245,230,.55);
-      text-align:left;
+      color: rgba(244,239,229,.62);
+      margin: 12px 0 8px;
     }
     input, textarea{
       width:100%;
-      border-radius:12px;
-      border:1px solid rgba(255,245,230,.10);
-      background: rgba(0,0,0,.22);
-      color: rgba(255,245,230,.90);
+      border-radius:14px;
+      border:1px solid rgba(215,184,106,.20);
+      background: rgba(0,0,0,.25);
+      color: rgba(244,239,229,.90);
       padding:12px 12px;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      letter-spacing:.02em;
       outline:none;
+      font-family: inherit;
+      letter-spacing:.02em;
     }
     textarea{ min-height:120px; resize:vertical; }
-    input:focus, textarea:focus{ border-color: rgba(200,162,75,.55); }
 
-    .submitRow{
+    .actions{
       display:flex;
-      align-items:center;
       justify-content:flex-end;
-      margin-top:6px;
+      gap:10px;
+      margin-top:14px;
     }
-    .submitBtn{
-      padding:12px 16px;
+    .btn{
       border-radius:999px;
-      border:1px solid rgba(200,162,75,.45);
-      background: rgba(200,162,75,.12);
-      color: rgba(255,245,230,.90);
-      font-size:11px;
-      letter-spacing:.22em;
+      border:1px solid rgba(215,184,106,.28);
+      background: rgba(0,0,0,.20);
+      color: rgba(244,239,229,.86);
+      padding:10px 14px;
+      font-size:12px;
+      letter-spacing:.16em;
       text-transform:uppercase;
       cursor:pointer;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
     }
-    .submitBtn:hover{
-      transform: translateY(-1px);
-      border-color: rgba(225,199,122,.70);
-      background: rgba(200,162,75,.18);
+    .btn.primary{
+      background: rgba(215,184,106,.14);
+      border-color: rgba(215,184,106,.44);
     }
 
-    @media (max-width:520px){
-      .mark{min-width:auto}
-      .brand .name{font-size:11px}
-      .pill{padding:10px 12px}
-      main{padding:32px 0 18px}
-      .tagline{font-size:24px}
-    }
-  </style>
-</head>
-
-<body>
-  <div class="wrap">
-    <header>
-      <div class="mark" aria-label="Marieposa">
-        <div class="seal" aria-hidden="true">
-          <img src="logo.png" alt="" />
-        </div>
-        <div class="brand">
-          <div class="name">MARIEPOSA</div>
-          <div class="phase">Founder Phase</div>
-        </div>
-      </div>
-
-      <nav class="nav" aria-label="Links">
-        <a class="pill" href="https://www.instagram.com/mariepo.sa" target="_blank" rel="noreferrer">Instagram</a>
-        <button class="pill" id="contactOpen" type="button">Contact</button>
-      </nav>
-    </header>
-
-    <div class="rule"></div>
-
-    <main>
-      <div class="hero">
-        <img class="logo" src="logo.png" alt="MARIEPOSA" />
-        <div class="tagline">Years of experience become tangible luxury.</div>
-      </div>
-    </main>
-
-    <footer>
-      <div class="names" aria-label="Collection names">
-        <span>Misty</span>
-        <span>Nancy</span>
-        <span>Carol</span>
-        <span>Alicia</span>
-        <span>Debbie</span>
-        <span>Kimbarbie</span>
-      </div>
-      <div class="tiny">© <span id="y"></span> MARIEPOSA</div>
-    </footer>
-  </div>
-
-  <!-- Contact modal (Netlify Forms) -->
-  <div class="modalOverlay" id="contactModal" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Contact MARIEPOSA">
-      <div class="modalHeader">
-        <div class="modalTitle">Contact</div>
-        <button class="closeBtn" id="contactClose" type="button" aria-label="Close">✕</button>
-      </div>
-
-      <!-- Netlify will capture this form. Your email does NOT appear anywhere on the page. -->
-      <form name="contact" method="POST" data-netlify="true">
-        <input type="hidden" name="form-name" value="contact" />
-
-        <label for="email">Your Email</label>
-        <input id="email" name="email" type="email" autocomplete="email" required />
-
-        <label for="subject">Subject</label>
-        <input id="subject" name="subject" type="text" required />
-
-        <label for="message">Message</label>
-        <textarea id="message" name="message" required></textarea>
-
-        <div class="submitRow">
-          <button class="submitBtn" type="submit">Send</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-
-    const modal = document.getElementById("contactModal");
-    const openBtn = document.getElementById("contactOpen");
-    const closeBtn = document.getElementById("contactClose");
-
-    function openModal(){
-      modal.style.display = "flex";
-      modal.setAttribute("aria-hidden","false");
-    }
-    function closeModal(){
-      modal.style.display = "none";
-      modal.setAttribute("aria-hidden","true");
-    }
-
-    openBtn.addEventListener("click", openModal);
-    closeBtn.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => { if(e.target === modal) closeModal(); });
-    document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeModal(); });
-  </script>
-</body>
-</html>
+    .note{
+      margin-top:10px;
