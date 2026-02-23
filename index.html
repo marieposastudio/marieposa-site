@@ -1,390 +1,970 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MARIEPOSA — Founder Phase</title>
-  <meta name="description" content="MARIEPOSA — Founder Phase. A proven foundation, stepping into a new luxury light." />
+// MarieposaLuxuryLanding.tsx
+// Drop-in React (Tailwind) landing page + basic product grid + VIP waitlist.
+// Works in Next.js / Vite / Lovable-style React projects.
+// Notes:
+// - Instagram embeds typically require oEmbed + access token; this uses a curated 3x3 grid that links to your IG.
+// - Swap placeholder images with your real campaign/product photos.
 
-  <!-- Optional: nicer serif if available; falls back gracefully -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+import React, { useMemo, useState } from "react";
 
-  <style>
-    :root{
-      --bg: #070707;
-      --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.08);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --soft: rgba(255,255,255,.18);
-      --gold: #d9b66f;
-      --gold2:#f1dba6;
-      --shadow: 0 18px 50px rgba(0,0,0,.55);
-      --radius: 22px;
-    }
+type Product = {
+  name: string;
+  subtitle: string;
+  price: string;
+  details: string[];
+  materials: string[];
+  imageUrl: string;
+  badge?: string;
+};
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body{
-      margin:0;
-      background: radial-gradient(1200px 700px at 20% 10%, rgba(217,182,111,.12), transparent 55%),
-                  radial-gradient(900px 700px at 80% 80%, rgba(241,219,166,.08), transparent 60%),
-                  var(--bg);
-      color: var(--text);
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      letter-spacing: .2px;
-    }
+const IG_HANDLE = "@mariepo.sa";
+const IG_URL = "https://www.instagram.com/mariepo.sa?igsh=NTc4MTIwNjQ2YQ==";
 
-    .wrap{
-      min-height: 100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 32px 18px;
-    }
+const BRAND = {
+  name: "MARIEPOSA",
+  tagline: "Luxury Footwear. Designed for D-Width.",
+  heroLine: "Wouldn’t You Rather Have a Shoe That Fits?",
+  subHero:
+    "Runway-level footwear engineered for fuller feet. Precision luxury. Limited runs.",
+};
 
-    .card{
-      width: min(980px, 100%);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
+function cx(...classes: Array<string | false | null | undefined>) {
+  return classes.filter(Boolean).join(" ");
+}
 
-    .topline{
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(217,182,111,.65), transparent);
-      opacity:.9;
-    }
+function Icon({ name }: { name: "arrow" | "sparkle" | "shield" | "ruler" }) {
+  const common = "h-5 w-5";
+  if (name === "arrow") {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M5 12h12m0 0-5-5m5 5-5 5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+  if (name === "sparkle") {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M12 2l1.2 5.1L18 9l-4.8 1.9L12 16l-1.2-5.1L6 9l4.8-1.9L12 2Z"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M19 14l.7 2.8L22 18l-2.3 1.2L19 22l-.7-2.8L16 18l2.3-1.2L19 14Z"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+  if (name === "shield") {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M12 2l8 4v7c0 5-3.4 9-8 9s-8-4-8-9V6l8-4Z"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M9.5 12.5l1.8 1.8 3.7-4.2"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+  return (
+    <svg className={common} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M4 8h16M4 16h16M6 6v12M18 6v12"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M8 11h8"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
-    header{
-      display:flex;
-      gap: 26px;
-      align-items: center;
-      justify-content: space-between;
-      padding: 26px 26px 0 26px;
-    }
+function Pill({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs tracking-wide text-black/70 backdrop-blur">
+      {children}
+    </span>
+  );
+}
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 14px;
-      min-width: 0;
-    }
+function Button({
+  children,
+  variant = "primary",
+  href,
+  onClick,
+  type,
+}: {
+  children: React.ReactNode;
+  variant?: "primary" | "secondary" | "ghost";
+  href?: string;
+  onClick?: () => void;
+  type?: "button" | "submit";
+}) {
+  const cls = cx(
+    "inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 text-sm font-medium tracking-wide transition",
+    "focus:outline-none focus:ring-2 focus:ring-black/25",
+    variant === "primary" &&
+      "bg-black text-white hover:bg-black/90 shadow-[0_12px_30px_-18px_rgba(0,0,0,0.7)]",
+    variant === "secondary" &&
+      "bg-white text-black border border-black/10 hover:border-black/20 hover:bg-white/80",
+    variant === "ghost" && "text-black/70 hover:text-black hover:bg-black/5"
+  );
 
-    .logo{
-      width: 54px;
-      height: 54px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.10);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      flex: 0 0 auto;
-    }
+  if (href) {
+    return (
+      <a className={cls} href={href} onClick={onClick}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <button className={cls} onClick={onClick} type={type ?? "button"}>
+      {children}
+    </button>
+  );
+}
 
-    .logo img{
-      width: 80%;
-      height: 80%;
-      object-fit: contain;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.55));
-    }
+function Section({
+  id,
+  eyebrow,
+  title,
+  subtitle,
+  children,
+}: {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <section id={id} className="py-16 sm:py-20">
+      <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+        <div className="max-w-3xl">
+          {eyebrow && (
+            <div className="mb-3 text-xs uppercase tracking-[0.25em] text-black/60">
+              {eyebrow}
+            </div>
+          )}
+          <h2 className="text-3xl sm:text-4xl font-[600] tracking-tight text-black">
+            {title}
+          </h2>
+          {subtitle && (
+            <p className="mt-3 text-base sm:text-lg leading-relaxed text-black/70">
+              {subtitle}
+            </p>
+          )}
+        </div>
+        {children && <div className="mt-10">{children}</div>}
+      </div>
+    </section>
+  );
+}
 
-    .brandtext{
-      min-width:0;
-      display:flex;
-      flex-direction:column;
-      gap: 2px;
-    }
+function Stat({
+  icon,
+  label,
+  value,
+}: {
+  icon: "sparkle" | "shield" | "ruler";
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="rounded-3xl border border-black/10 bg-white/70 p-6 backdrop-blur">
+      <div className="flex items-center gap-3">
+        <div className="grid h-10 w-10 place-items-center rounded-2xl border border-black/10 bg-white">
+          <Icon name={icon} />
+        </div>
+        <div>
+          <div className="text-sm text-black/60">{label}</div>
+          <div className="text-xl font-semibold tracking-tight">{value}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-    .wordmark{
-      font-family: "Libre Baskerville", Georgia, "Times New Roman", serif;
-      font-weight: 700;
-      letter-spacing: 3px;
-      font-size: 16px;
-      white-space: nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
-    }
-
-    .phase{
-      font-size: 11px;
-      letter-spacing: 4px;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-
-    .actions{
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      flex-wrap: wrap;
-      justify-content:flex-end;
-    }
-
-    .btn{
-      appearance:none;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-size: 13px;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
-      cursor:pointer;
-    }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(217,182,111,.35); }
-    .btn.primary{
-      border-color: rgba(217,182,111,.35);
-      background: linear-gradient(180deg, rgba(217,182,111,.16), rgba(255,255,255,.05));
-    }
-
-    .hero{
-      padding: 18px 26px 26px 26px;
-      display:grid;
-      grid-template-columns: 1.25fr .85fr;
-      gap: 18px;
-    }
-
-    @media (max-width: 860px){
-      .hero{ grid-template-columns: 1fr; }
-      header{ align-items:flex-start; }
-      .actions{ justify-content:flex-start; }
-    }
-
-    .panel{
-      border-radius: calc(var(--radius) - 6px);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
-      border: 1px solid rgba(255,255,255,.10);
-      padding: 18px;
-    }
-
-    .headline{
-      font-family: "Libre Baskerville", Georgia, "Times New Roman", serif;
-      font-weight: 700;
-      letter-spacing: 1px;
-      font-size: clamp(28px, 4vw, 42px);
-      line-height: 1.14;
-      margin: 10px 0 10px;
-    }
-
-    .sub{
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.65;
-      max-width: 62ch;
-      margin: 0;
-    }
-
-    .micro{
-      margin-top: 14px;
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .pill{
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      border-radius: 999px;
-      padding: 8px 10px;
-      font-size: 12px;
-      color: rgba(255,255,255,.82);
-      letter-spacing: .3px;
-    }
-    .pill b{
-      color: var(--gold2);
-      font-weight: 600;
-    }
-
-    .formtitle{
-      font-family: "Libre Baskerville", Georgia, "Times New Roman", serif;
-      font-weight: 700;
-      letter-spacing: 1px;
-      font-size: 18px;
-      margin: 4px 0 10px;
-    }
-
-    form{
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    label{
-      font-size: 12px;
-      color: rgba(255,255,255,.76);
-      letter-spacing: .4px;
-      text-transform: uppercase;
-    }
-
-    input, textarea{
-      width:100%;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.25);
-      color: var(--text);
-      padding: 12px 12px;
-      font-size: 14px;
-      outline: none;
-    }
-    input:focus, textarea:focus{
-      border-color: rgba(217,182,111,.45);
-      box-shadow: 0 0 0 3px rgba(217,182,111,.10);
-    }
-    textarea{ min-height: 110px; resize: vertical; }
-
-    .note{
-      font-size: 12px;
-      color: rgba(255,255,255,.62);
-      line-height: 1.5;
-      margin-top: 8px;
-    }
-
-    footer{
-      padding: 0 26px 22px 26px;
-      color: rgba(255,255,255,.55);
-      font-size: 12px;
-      display:flex;
-      justify-content:space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .toast{
-      display:none;
-      margin-top: 12px;
-      border: 1px solid rgba(217,182,111,.35);
-      background: rgba(217,182,111,.10);
-      border-radius: 14px;
-      padding: 10px 12px;
-      font-size: 13px;
-      color: rgba(255,255,255,.88);
-    }
-  </style>
-</head>
-
-<body>
-  <div class="wrap">
-    <div class="card">
-      <div class="topline"></div>
-
-      <header>
-        <div class="brand">
-          <div class="logo" aria-label="MARIEPOSA logo">
-            <!-- Uses your uploaded file: logo.png in the repo root -->
-            <img src="logo.png" alt="MARIEPOSA" />
+function ProductCard({
+  p,
+  onSelect,
+}: {
+  p: Product;
+  onSelect: (p: Product) => void;
+}) {
+  return (
+    <button
+      onClick={() => onSelect(p)}
+      className="group w-full text-left rounded-3xl border border-black/10 bg-white/70 overflow-hidden backdrop-blur hover:border-black/20 transition"
+    >
+      <div className="relative aspect-[4/3] bg-gradient-to-b from-black/5 to-black/0">
+        <img
+          src={p.imageUrl}
+          alt={p.name}
+          className="h-full w-full object-cover"
+          loading="lazy"
+        />
+        <div className="absolute left-4 top-4 flex gap-2">
+          {p.badge && <Pill>{p.badge}</Pill>}
+          <Pill>D-Width Luxury</Pill>
+        </div>
+      </div>
+      <div className="p-6">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <div className="text-lg font-semibold tracking-tight text-black">
+              {p.name}
+            </div>
+            <div className="mt-1 text-sm text-black/65">{p.subtitle}</div>
           </div>
-          <div class="brandtext">
-            <div class="wordmark">MARIEPOSA</div>
-            <div class="phase">Founder Phase</div>
+          <div className="text-sm font-medium text-black/80">{p.price}</div>
+        </div>
+        <div className="mt-5 flex items-center justify-between">
+          <span className="text-xs uppercase tracking-[0.22em] text-black/55">
+            View details
+          </span>
+          <span className="grid h-9 w-9 place-items-center rounded-2xl border border-black/10 bg-white text-black/70 group-hover:text-black group-hover:border-black/20 transition">
+            <Icon name="arrow" />
+          </span>
+        </div>
+      </div>
+    </button>
+  );
+}
+
+function Modal({
+  open,
+  onClose,
+  title,
+  children,
+}: {
+  open: boolean;
+  onClose: () => void;
+  title: string;
+  children: React.ReactNode;
+}) {
+  if (!open) return null;
+  return (
+    <div
+      className="fixed inset-0 z-50"
+      role="dialog"
+      aria-modal="true"
+      aria-label={title}
+    >
+      <div
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="absolute inset-x-0 top-10 mx-auto w-[92%] max-w-3xl">
+        <div className="rounded-3xl border border-black/10 bg-white shadow-[0_30px_80px_-35px_rgba(0,0,0,0.85)]">
+          <div className="flex items-center justify-between px-6 py-5 border-b border-black/10">
+            <div className="text-base sm:text-lg font-semibold tracking-tight">
+              {title}
+            </div>
+            <button
+              onClick={onClose}
+              className="rounded-2xl px-3 py-2 text-sm text-black/70 hover:text-black hover:bg-black/5"
+            >
+              Close
+            </button>
+          </div>
+          <div className="p-6">{children}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function MarieposaLuxuryLanding() {
+  const [selected, setSelected] = useState<Product | null>(null);
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const products: Product[] = useMemo(
+    () => [
+      {
+        name: "Misty Stiletto",
+        subtitle: "Soft square vamp, two-strap stiletto sandal.",
+        price: "$950–$1,150",
+        badge: "Signature",
+        imageUrl:
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1600&q=80",
+        details: [
+          "D-width engineered proportions",
+          "9 mm full-foot padding",
+          "4 in heel",
+          "Swarovski crystal at strap cross-point",
+          "Raised gold butterfly outsole emblem",
+        ],
+        materials: ["Breathable leather (black/nude)", "Matte TPU (clear)", "Leather outsole"],
+      },
+      {
+        name: "Nancy Stiletto",
+        subtitle: "Pointed toe pump with sculpted wing detailing.",
+        price: "$980–$1,200",
+        badge: "Icon",
+        imageUrl:
+          "https://images.unsplash.com/photo-1528701800489-20be3c1ea3f7?auto=format&fit=crop&w=1600&q=80",
+        details: [
+          "Pointed toe, open inner side (signature silhouette)",
+          "9 mm memory foam padding",
+          "4 in heel",
+          "Four crystals at back counter seam",
+          "Rose-gold butterfly outsole emblem",
+        ],
+        materials: ["Leather upper", "Luxury lining", "Leather outsole"],
+      },
+      {
+        name: "Carol OTK Boot",
+        subtitle: "Over-the-knee boot engineered for extended calf fit.",
+        price: "$1,050–$1,350",
+        imageUrl:
+          "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1600&q=80",
+        details: [
+          "D-width base with structured shaft",
+          "3.5–4 in heel",
+          "9 mm padding",
+          "Gold butterfly outsole emblem",
+          "Engineered entry + flexible fit system",
+        ],
+        materials: ["Suede or matte leather", "Premium stretch components", "Leather outsole"],
+      },
+      {
+        name: "Alicia Sandal",
+        subtitle: "Minimalist 2-strap sandal with elevated detailing.",
+        price: "$650–$850",
+        imageUrl:
+          "https://images.unsplash.com/photo-1528701800489-20be3c1ea3f7?auto=format&fit=crop&w=1600&q=80",
+        details: [
+          "2 cm lift",
+          "9 mm wrapped padding",
+          "Crystal on outer outsole corner",
+          "Small raised gold butterfly on front strap",
+          "Clean edge paint + stitching",
+        ],
+        materials: ["Breathable leather", "Matte TPU (clear)", "Leather outsole"],
+      },
+      {
+        name: "Kim Pointed Flat",
+        subtitle: "Pointed flat with sculpted topline and signature wing curve.",
+        price: "$600–$800",
+        imageUrl:
+          "https://images.unsplash.com/photo-1528701800489-20be3c1ea3f7?auto=format&fit=crop&w=1600&q=80",
+        details: [
+          "Flat version of Nancy attitude",
+          "2 cm lift",
+          "9 mm padding",
+          "Standard crystal on outsole corner",
+          "Gold butterfly detailing",
+        ],
+        materials: ["Leather or suede", "Premium lining", "Leather outsole"],
+      },
+      {
+        name: "Debbie Sneaker",
+        subtitle: "Luxury sneaker with metallic wing separation detail.",
+        price: "$520–$720",
+        imageUrl:
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1600&q=80",
+        details: [
+          "D-width fit integrity",
+          "9 mm padding",
+          "2.5–3 cm rubber sole height",
+          "Raised gold butterfly on collar",
+          "Swarovski crystal on outsole near heel",
+        ],
+        materials: ["Suede + leather upper", "Metallic wing overlay", "Premium rubber outsole"],
+      },
+    ],
+    []
+  );
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email.trim()) return;
+    // Hook this into your email platform:
+    // - Mailchimp / Klaviyo / ConvertKit / Airtable / Supabase, etc.
+    setSubmitted(true);
+  }
+
+  return (
+    <div className="min-h-screen bg-[#fbfaf7] text-black">
+      {/* Top bar */}
+      <div className="sticky top-0 z-40 border-b border-black/10 bg-[#fbfaf7]/85 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3 sm:px-8">
+          <a href="#top" className="flex items-center gap-3">
+            <div className="text-sm tracking-[0.35em] font-semibold">
+              {BRAND.name}
+            </div>
+            <span className="hidden sm:inline text-xs text-black/55">
+              D-Width Luxury Footwear
+            </span>
+          </a>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <a
+              className="hidden sm:inline text-xs uppercase tracking-[0.22em] text-black/60 hover:text-black"
+              href="#collection"
+            >
+              Collection
+            </a>
+            <a
+              className="hidden sm:inline text-xs uppercase tracking-[0.22em] text-black/60 hover:text-black"
+              href="#fit"
+            >
+              The Fit
+            </a>
+            <a
+              className="hidden sm:inline text-xs uppercase tracking-[0.22em] text-black/60 hover:text-black"
+              href="#world"
+            >
+              World
+            </a>
+            <Button href="#vip" variant="primary">
+              Join Private Launch <Icon name="arrow" />
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Hero */}
+      <header id="top" className="relative">
+        <div className="mx-auto max-w-6xl px-5 sm:px-8 pt-14 pb-12 sm:pt-20 sm:pb-16">
+          <div className="grid gap-10 lg:grid-cols-12 items-center">
+            <div className="lg:col-span-6">
+              <div className="flex flex-wrap gap-2">
+                <Pill>Precision-engineered D-width</Pill>
+                <Pill>Limited runs</Pill>
+                <Pill>Gold butterfly signature</Pill>
+              </div>
+
+              <h1 className="mt-6 text-4xl sm:text-6xl font-[650] tracking-tight leading-[1.05]">
+                {BRAND.heroLine}
+              </h1>
+              <p className="mt-5 text-base sm:text-lg leading-relaxed text-black/70 max-w-xl">
+                {BRAND.subHero}
+              </p>
+
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                <Button href="#collection" variant="primary">
+                  Shop The Collection <Icon name="arrow" />
+                </Button>
+                <Button href="#fit" variant="secondary">
+                  Discover The Fit
+                </Button>
+                <Button href={IG_URL} variant="ghost">
+                  Follow {IG_HANDLE}
+                </Button>
+              </div>
+
+              <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <Stat icon="ruler" label="Engineered Last" value="9.75 cm Ball / 5 cm Waist" />
+                <Stat icon="shield" label="Padding Standard" value="9 mm Full-Foot" />
+                <Stat icon="sparkle" label="Signature Detail" value="Swarovski + Butterfly" />
+              </div>
+            </div>
+
+            <div className="lg:col-span-6">
+              {/* Cinematic panel */}
+              <div className="relative overflow-hidden rounded-[2.25rem] border border-black/10 bg-white/60 shadow-[0_40px_90px_-55px_rgba(0,0,0,0.65)]">
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/10 via-transparent to-black/5" />
+                <div className="relative aspect-[4/5]">
+                  <img
+                    src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80"
+                    alt="Editorial runway mood"
+                    className="h-full w-full object-cover"
+                    loading="eager"
+                  />
+                </div>
+                <div className="relative p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="text-xs uppercase tracking-[0.22em] text-black/60">
+                      {BRAND.tagline}
+                    </div>
+                    <Pill>Founder Phase</Pill>
+                  </div>
+                  <div className="mt-3 text-sm text-black/70 leading-relaxed">
+                    Luxury should feel inevitable — not negotiable. Marieposa exists for the woman
+                    who refuses to compromise on fit or finish.
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="actions">
-          <!-- IMPORTANT: replace the href with your real Instagram URL -->
-          <a class="btn" href="https://instagram.com/YOUR_HANDLE_HERE" target="_blank" rel="noopener">
-            Instagram ↗
-          </a>
-          <a class="btn primary" href="#contact">
-            Contact
-          </a>
-        </div>
+        {/* Soft divider */}
+        <div className="h-px bg-gradient-to-r from-transparent via-black/10 to-transparent" />
       </header>
 
-      <section class="hero">
-        <div class="panel">
-          <div class="headline">A proven foundation, stepping into a new luxury light.</div>
-          <p class="sub">
-            MARIEPOSA begins with history: <strong>13 years of proven, scalable production experience</strong> —
-            refined through real-world fit, construction, and repeatable execution.
-            Now, the same foundation advances into an elevated luxury future.
-          </p>
-
-          <div class="micro" aria-label="Brand proof points">
-            <div class="pill"><b>13 Years</b> production experience</div>
-            <div class="pill"><b>Founder-Led</b> precision & fit</div>
-            <div class="pill"><b>Luxury</b> build standards</div>
+      {/* Fit problem */}
+      <Section
+        id="fit"
+        eyebrow="The Fit Problem"
+        title="Luxury Was Never Built For Your Foot."
+        subtitle="Most luxury shoes are constructed on narrow lasts. Marieposa is engineered with intentional proportion — so the silhouette stays high-fashion while the fit stays honest."
+      >
+        <div className="grid gap-4 md:grid-cols-3">
+          <div className="rounded-3xl border border-black/10 bg-white/70 p-6 backdrop-blur">
+            <div className="text-xs uppercase tracking-[0.22em] text-black/60">The truth</div>
+            <div className="mt-3 text-lg font-semibold tracking-tight">
+              Narrow lasts distort your walk.
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-black/70">
+              When fit is wrong, posture changes. Confidence changes. The shoe becomes the problem
+              — not the look.
+            </p>
           </div>
 
-          <div class="toast" id="sentToast">
-            Thank you — your message was received.
+          <div className="rounded-3xl border border-black/10 bg-white/70 p-6 backdrop-blur">
+            <div className="text-xs uppercase tracking-[0.22em] text-black/60">The standard</div>
+            <div className="mt-3 text-lg font-semibold tracking-tight">
+              Engineered for D-width.
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-black/70">
+              Built around proportion: <span className="font-medium">9.75 cm</span> ball width and{" "}
+              <span className="font-medium">5 cm</span> waist — the foundation for a luxury stance.
+            </p>
           </div>
 
-          <p class="note">
-            This is a minimalist founder placeholder — designed to feel expensive without revealing more than necessary.
-          </p>
+          <div className="rounded-3xl border border-black/10 bg-white/70 p-6 backdrop-blur">
+            <div className="text-xs uppercase tracking-[0.22em] text-black/60">The finish</div>
+            <div className="mt-3 text-lg font-semibold tracking-tight">
+              Craft + detail, not compromise.
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-black/70">
+              Gold butterfly signature. Swarovski detailing. Leather outsoles. A fit that looks
+              expensive — because it is.
+            </p>
+          </div>
         </div>
+      </Section>
 
-        <div class="panel" id="contact">
-          <div class="formtitle">Send a message</div>
-          <p class="sub" style="margin-bottom:10px;">
-            Leave your details below. Your message is submitted through the site — your email stays private, and
-            my email is not displayed.
-          </p>
+      {/* Engineering */}
+      <Section
+        eyebrow="Designed With Precision"
+        title="Crafted. Measured. Obsessed."
+        subtitle="Technical standards presented with luxury restraint — because engineering is part of the aesthetic."
+      >
+        <div className="grid gap-4 lg:grid-cols-12">
+          <div className="lg:col-span-7 rounded-[2.25rem] border border-black/10 bg-white/70 p-8 backdrop-blur">
+            <div className="grid gap-4 sm:grid-cols-2">
+              {[
+                { k: "Fit", v: "D-width engineered proportion" },
+                { k: "Padding", v: "9 mm full-foot memory foam standard" },
+                { k: "Heels", v: "4 in stiletto architecture (select styles)" },
+                { k: "Signature", v: "Raised gold butterfly emblem placement" },
+                { k: "Detail", v: "Swarovski crystal accents" },
+                { k: "Outsole", v: "Leather outsole with protective finish" },
+              ].map((row) => (
+                <div key={row.k} className="rounded-2xl border border-black/10 bg-white p-5">
+                  <div className="text-xs uppercase tracking-[0.22em] text-black/55">{row.k}</div>
+                  <div className="mt-2 text-sm font-medium text-black/80">{row.v}</div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 text-sm text-black/65 leading-relaxed">
+              Marieposa is luxury fit, not “comfort shoes.” The standard is quiet, expensive
+              precision — in every millimeter.
+            </div>
+          </div>
 
-          <!-- NETLIFY FORMS (no email shown on the site) -->
-          <form name="marieposa-contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?sent=1">
-            <!-- required hidden input for Netlify Forms -->
-            <input type="hidden" name="form-name" value="marieposa-contact" />
-            <!-- honeypot field (spam protection) -->
-            <p style="display:none;">
-              <label>Don’t fill this out: <input name="bot-field" /></label>
+          <div className="lg:col-span-5 rounded-[2.25rem] overflow-hidden border border-black/10 bg-white/70 backdrop-blur">
+            <div className="aspect-[4/5]">
+              <img
+                src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=1600&q=80"
+                alt="Luxury detail mood"
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div className="p-7">
+              <div className="text-xs uppercase tracking-[0.22em] text-black/55">Signature</div>
+              <div className="mt-2 text-lg font-semibold tracking-tight">
+                Obsession in every millimeter.
+              </div>
+              <p className="mt-3 text-sm text-black/70 leading-relaxed">
+                The butterfly isn’t decoration — it’s a signature. The crystal isn’t a trend — it’s
+                punctuation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* Collection */}
+      <Section
+        id="collection"
+        eyebrow="The Collection"
+        title="Runway silhouettes. Engineered fit."
+        subtitle="Select a style to view luxury specs, fit details, and signature elements."
+      >
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {products.map((p) => (
+            <ProductCard key={p.name} p={p} onSelect={setSelected} />
+          ))}
+        </div>
+        <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-3xl border border-black/10 bg-white/70 p-6 backdrop-blur">
+          <div>
+            <div className="text-xs uppercase tracking-[0.22em] text-black/55">
+              Limited production
+            </div>
+            <div className="mt-2 text-lg font-semibold tracking-tight">
+              Crafted in controlled runs — by design.
+            </div>
+            <p className="mt-2 text-sm text-black/70 leading-relaxed max-w-2xl">
+              Marieposa is built for the woman who values precision, craftsmanship, and the
+              confidence of a shoe that fits.
+            </p>
+          </div>
+          <Button href="#vip" variant="primary">
+            Join Private Launch <Icon name="arrow" />
+          </Button>
+        </div>
+      </Section>
+
+      {/* Founder */}
+      <Section
+        eyebrow="Founder Authority"
+        title="Built by fit. Not guesswork."
+        subtitle="Marieposa is founded by a professional fit model with 15+ years inside fittings and development rooms — creating a luxury house where fit is engineered, not assumed."
+      >
+        <div className="grid gap-4 lg:grid-cols-12">
+          <div className="lg:col-span-7 rounded-[2.25rem] border border-black/10 bg-white/70 p-8 backdrop-blur">
+            <div className="text-xs uppercase tracking-[0.22em] text-black/55">
+              Why Marieposa
+            </div>
+            <h3 className="mt-3 text-2xl font-semibold tracking-tight">
+              Because your foot deserves luxury that fits.
+            </h3>
+            <p className="mt-4 text-sm leading-relaxed text-black/70">
+              The industry has treated fuller-foot women as an afterthought: widened uppers, scaled
+              patterns, “comfort” positioning. Marieposa rejects that. This is a luxury house with a
+              precision standard — D-width from the foundation.
             </p>
 
-            <div>
-              <label for="name">Name</label>
-              <input id="name" name="name" type="text" autocomplete="name" required />
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-2xl border border-black/10 bg-white p-5">
+                <div className="text-xs uppercase tracking-[0.22em] text-black/55">
+                  Language
+                </div>
+                <div className="mt-2 text-sm font-medium text-black/80">
+                  D-width luxury. Not “plus-size shoes.”
+                </div>
+              </div>
+              <div className="rounded-2xl border border-black/10 bg-white p-5">
+                <div className="text-xs uppercase tracking-[0.22em] text-black/55">
+                  Standard
+                </div>
+                <div className="mt-2 text-sm font-medium text-black/80">
+                  Fit engineering that preserves high-fashion silhouettes.
+                </div>
+              </div>
             </div>
+          </div>
 
-            <div>
-              <label for="email">Your Email</label>
-              <input id="email" name="email" type="email" autocomplete="email" required />
+          <div className="lg:col-span-5 rounded-[2.25rem] overflow-hidden border border-black/10 bg-white/70 backdrop-blur">
+            <div className="aspect-[4/5]">
+              <img
+                src="https://images.unsplash.com/photo-1520975682031-a2629b2d9f04?auto=format&fit=crop&w=1600&q=80"
+                alt="Founder editorial mood"
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
             </div>
-
-            <div>
-              <label for="message">Message</label>
-              <textarea id="message" name="message" required></textarea>
+            <div className="p-7">
+              <div className="text-xs uppercase tracking-[0.22em] text-black/55">
+                Statement
+              </div>
+              <div className="mt-2 text-lg font-semibold tracking-tight">
+                Luxury that assumes you belong.
+              </div>
+              <p className="mt-3 text-sm text-black/70 leading-relaxed">
+                Marieposa doesn’t ask for attention. It assumes it — because the details are
+                undeniable.
+              </p>
             </div>
+          </div>
+        </div>
+      </Section>
 
-            <button class="btn primary" type="submit">Send message</button>
-
-            <p class="note">
-              Messages are captured securely in Netlify. You can later enable notifications without publishing your email.
+      {/* Instagram / World */}
+      <Section
+        id="world"
+        eyebrow="The World of Marieposa"
+        title="Curated. Editorial. Unmistakable."
+        subtitle="Follow the brand’s visual world — runway energy, luxury detail, and founder-led craft."
+      >
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div className="max-w-2xl">
+            <div className="flex flex-wrap gap-2">
+              <Pill>Runway energy</Pill>
+              <Pill>Luxury detail</Pill>
+              <Pill>Founder-led</Pill>
+            </div>
+            <p className="mt-4 text-sm text-black/70 leading-relaxed">
+              Instagram is treated like a lookbook. Curated, not casual. Tap in.
             </p>
-          </form>
+            <div className="mt-5">
+              <Button href={IG_URL} variant="secondary">
+                Follow {IG_HANDLE} <Icon name="arrow" />
+              </Button>
+            </div>
+          </div>
+
+          {/* 3x3 curated grid (placeholders) */}
+          <div className="w-full lg:w-[520px] rounded-[2.25rem] border border-black/10 bg-white/70 p-4 backdrop-blur">
+            <div className="grid grid-cols-3 gap-2">
+              {Array.from({ length: 9 }).map((_, i) => (
+                <a
+                  key={i}
+                  href={IG_URL}
+                  className="relative aspect-square overflow-hidden rounded-2xl border border-black/10 bg-white"
+                  aria-label={`Open Instagram ${IG_HANDLE}`}
+                >
+                  <img
+                    src={`https://images.unsplash.com/photo-1520975661595-6453be3f7070?auto=format&fit=crop&w=600&q=80&sig=${i}`}
+                    alt=""
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-60" />
+                </a>
+              ))}
+            </div>
+            <div className="mt-4 flex items-center justify-between px-1">
+              <div className="text-xs uppercase tracking-[0.22em] text-black/55">
+                {IG_HANDLE}
+              </div>
+              <a
+                href={IG_URL}
+                className="text-sm font-medium text-black hover:underline"
+              >
+                View on Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* VIP / Waitlist */}
+      <section id="vip" className="py-16 sm:py-20">
+        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+          <div className="rounded-[2.5rem] border border-black/10 bg-white/70 overflow-hidden backdrop-blur shadow-[0_40px_90px_-55px_rgba(0,0,0,0.65)]">
+            <div className="grid gap-0 lg:grid-cols-12">
+              <div className="lg:col-span-7 p-8 sm:p-10">
+                <div className="text-xs uppercase tracking-[0.25em] text-black/60">
+                  Private Launch List
+                </div>
+                <h2 className="mt-4 text-3xl sm:text-4xl font-[650] tracking-tight">
+                  Be first to wear Marieposa.
+                </h2>
+                <p className="mt-4 text-sm sm:text-base leading-relaxed text-black/70 max-w-2xl">
+                  Crafted in limited runs. Engineered with intention. VIP access includes early
+                  product drops, private sizing guidance, and first access to launch inventory.
+                </p>
+
+                <form onSubmit={handleSubmit} className="mt-8">
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <input
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      type="email"
+                      placeholder="Email for VIP access"
+                      className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-black/20"
+                      required
+                    />
+                    <Button type="submit" variant="primary">
+                      Join VIP <Icon name="arrow" />
+                    </Button>
+                  </div>
+                  {submitted && (
+                    <div className="mt-3 text-sm text-black/70">
+                      You’re in. Expect something beautiful.
+                    </div>
+                  )}
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <Pill>Limited production</Pill>
+                    <Pill>D-width from the foundation</Pill>
+                    <Pill>Swarovski signature</Pill>
+                  </div>
+                </form>
+              </div>
+
+              <div className="lg:col-span-5 relative">
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/10 via-transparent to-black/5" />
+                <div className="h-full min-h-[320px] lg:min-h-full">
+                  <img
+                    src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1600&q=80"
+                    alt="VIP editorial"
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="rounded-3xl border border-white/25 bg-black/45 p-5 text-white backdrop-blur">
+                    <div className="text-xs uppercase tracking-[0.25em] text-white/80">
+                      Price Positioning
+                    </div>
+                    <div className="mt-2 text-lg font-semibold tracking-tight">
+                      $900–$1,200 Luxury Standard
+                    </div>
+                    <div className="mt-2 text-sm text-white/85 leading-relaxed">
+                      Elevated materials. Precision fit. Controlled availability.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <footer>
-        <div>© <span id="year"></span> MARIEPOSA</div>
-        <div style="opacity:.9;">Minimal founder presence • evolving quietly</div>
+      {/* Footer */}
+      <footer className="border-t border-black/10 py-10">
+        <div className="mx-auto max-w-6xl px-5 sm:px-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div>
+              <div className="text-sm tracking-[0.35em] font-semibold">{BRAND.name}</div>
+              <div className="mt-2 text-sm text-black/60">{BRAND.tagline}</div>
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              <a
+                href="#collection"
+                className="text-xs uppercase tracking-[0.22em] text-black/60 hover:text-black"
+              >
+                Collection
+              </a>
+              <a
+                href="#fit"
+                className="text-xs uppercase tracking-[0.22em] text-black/60 hover:text-black"
+              >
+                The Fit
+              </a>
+              <a
+                href={IG_URL}
+                className="text-xs uppercase tracking-[0.22em] text-black/60 hover:text-black"
+              >
+                Instagram
+              </a>
+              <a
+                href="#vip"
+                className="text-xs uppercase tracking-[0.22em] text-black/60 hover:text-black"
+              >
+                Private Launch
+              </a>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-black/55">
+            <div>© {new Date().getFullYear()} {BRAND.name}. All rights reserved.</div>
+            <div className="flex gap-4">
+              <a className="hover:text-black" href={IG_URL}>
+                Follow {IG_HANDLE}
+              </a>
+              <a className="hover:text-black" href="#top">
+                Back to top
+              </a>
+            </div>
+          </div>
+        </div>
       </footer>
+
+      {/* Product Modal */}
+      <Modal
+        open={!!selected}
+        onClose={() => setSelected(null)}
+        title={selected?.name ?? "Product"}
+      >
+        {selected && (
+          <div className="grid gap-6 sm:grid-cols-12">
+            <div className="sm:col-span-5">
+              <div className="overflow-hidden rounded-3xl border border-black/10 bg-white">
+                <div className="aspect-[4/5]">
+                  <img
+                    src={selected.imageUrl}
+                    alt={selected.name}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+              <div className="mt-4 flex gap-2">
+                <Pill>{selected.price}</Pill>
+                <Pill>D-Width Luxury</Pill>
+              </div>
+            </div>
+
+            <div className="sm:col-span-7">
+              <div className="text-sm text-black/65">{selected.subtitle}</div>
+
+              <div className="mt-6">
+                <div className="text-xs uppercase tracking-[0.22em] text-black/55">
+                  Engineering & Signature
+                </div>
+                <ul className="mt-3 space-y-2 text-sm text-black/75">
+                  {selected.details.map((d) => (
+                    <li key={d} className="flex gap-2">
+                      <span className="mt-[6px] h-1.5 w-1.5 rounded-full bg-black/50" />
+                      <span>{d}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-6">
+                <div className="text-xs uppercase tracking-[0.22em] text-black/55">
+                  Materials
+                </div>
+                <ul className="mt-3 space-y-2 text-sm text-black/75">
+                  {selected.materials.map((m) => (
+                    <li key={m} className="flex gap-2">
+                      <span className="mt-[6px] h-1.5 w-1.5 rounded-full bg-black/50" />
+                      <span>{m}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                <Button href="#vip" variant="primary" onClick={() => setSelected(null)}>
+                  Join Private Launch <Icon name="arrow" />
+                </Button>
+                <Button href={IG_URL} variant="secondary">
+                  See on Instagram <Icon name="arrow" />
+                </Button>
+              </div>
+
+              <div className="mt-4 text-xs text-black/55 leading-relaxed">
+                Note: This site is built to convert for a luxury “Founder Phase” launch. Swap in your
+                product imagery, and connect the VIP form to your email platform (Klaviyo/ConvertKit/etc.).
+              </div>
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
-  </div>
-
-  <script>
-    // year
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // show success toast after redirect
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("sent") === "1") {
-      const toast = document.getElementById("sentToast");
-      toast.style.display = "block";
-      // clean the URL (optional)
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-  </script>
-</body>
-</html>
+  );
+}
