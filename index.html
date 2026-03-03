@@ -183,13 +183,15 @@ button{
   }
 
   nav{
-  white-space: nowrap;
-}
   display:flex;
-  flex-direction: column;   /* stack buttons so they don’t overlap */
-  align-items:flex-end;     /* keep them on the RIGHT */
-  gap:6px;
-  max-width:none;
+  flex-direction:column;   /* stack vertically */
+  align-items:flex-end;    /* keep on the RIGHT */
+  gap:8px;                 /* spacing between buttons */
+}
+
+nav a{
+  display:inline-block;
+  width:auto;
 }
 
   nav a{
