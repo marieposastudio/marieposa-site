@@ -191,6 +191,60 @@ button{
   }
 
 }
+/* MOBILE TUNE-UP (smaller buttons, better placement) */
+@media (max-width: 520px){
+  header{
+    padding: 18px 16px;
+    align-items:flex-start;
+  }
+
+  .brand{
+    font-size:16px;
+    letter-spacing:5px;
+  }
+  .brand small{
+    font-size:10px;
+    letter-spacing:4px;
+    margin-top:6px;
+  }
+
+  nav{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    max-width: 170px; /* keeps buttons from becoming huge */
+  }
+
+  nav a{
+    padding:7px 10px;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-left:0;          /* gap handles spacing now */
+    border-radius:999px;
+    white-space:nowrap;     /* prevents weird wrapping inside a button */
+  }
+}
+/* MOBILE – smaller top-right buttons */
+@media (max-width: 520px){
+
+  header{
+    padding:18px 16px;
+  }
+
+  nav{
+    display:flex;
+    gap:8px;
+  }
+
+  nav a{
+    padding:6px 10px;       /* smaller button size */
+    font-size:10px;         /* smaller text */
+    letter-spacing:2px;     /* slightly tighter */
+    margin-left:0;
+  }
+
+}
 </style>
 </head>
 
