@@ -169,27 +169,29 @@ button{
 @media (max-width: 600px){
 
   header{
-    flex-direction: column;
+    /* keep the same TOP bar layout */
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    gap: 16px;
+    padding: 18px 16px;
   }
 
   nav{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
+    display:flex;
+    flex-direction: column;   /* stack so they don’t overlap */
+    align-items: flex-end;    /* keep them on the RIGHT */
+    gap: 10px;                /* space between buttons */
   }
 
   nav a{
-    margin: 6px 0;
-    padding: 12px 24px;
-    font-size: 11px;
+    width: auto;              /* STOP the big wide buttons */
+    margin: 0;                /* clean spacing */
+    padding: 8px 14px;        /* slightly smaller on mobile */
+    font-size: 10px;
     letter-spacing: 2px;
-    width: 80%;
     text-align: center;
+    white-space: nowrap;      /* prevents weird wrapping */
   }
-
 }
 /* MOBILE TUNE-UP (smaller buttons, better placement) */
 @media (max-width: 520px){
