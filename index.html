@@ -165,34 +165,6 @@ button{
   opacity:0.6;
 }
 .close:hover{opacity:1;}
-  /* MOBILE FIX */
-@media (max-width: 600px){
-
-  header{
-    /* keep the same TOP bar layout */
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 16px;
-  }
-
-  nav{
-    display:flex;
-    flex-direction: column;   /* stack so they don’t overlap */
-    align-items: flex-end;    /* keep them on the RIGHT */
-    gap: 10px;                /* space between buttons */
-  }
-
-  nav a{
-    width: auto;              /* STOP the big wide buttons */
-    margin: 0;                /* clean spacing */
-    padding: 8px 14px;        /* slightly smaller on mobile */
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-align: center;
-    white-space: nowrap;      /* prevents weird wrapping */
-  }
-}
 /* MOBILE TUNE-UP (smaller buttons, better placement) */
 @media (max-width: 520px){
   header{
@@ -211,41 +183,23 @@ button{
   }
 
   nav{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    justify-content:flex-end;
-    max-width: 170px; /* keeps buttons from becoming huge */
-  }
-
-  nav a{
-    padding:7px 10px;
-    font-size:10px;
-    letter-spacing:2px;
-    margin-left:0;          /* gap handles spacing now */
-    border-radius:999px;
-    white-space:nowrap;     /* prevents weird wrapping inside a button */
-  }
+  white-space: nowrap;
 }
-/* MOBILE – smaller top-right buttons */
-@media (max-width: 520px){
-
-  header{
-    padding:18px 16px;
-  }
-
-  nav{
-    display:flex;
-    gap:8px;
-  }
+  display:flex;
+  flex-direction: column;   /* stack buttons so they don’t overlap */
+  align-items:flex-end;     /* keep them on the RIGHT */
+  gap:6px;
+  max-width:none;
+}
 
   nav a{
-    padding:6px 10px;       /* smaller button size */
-    font-size:10px;         /* smaller text */
-    letter-spacing:2px;     /* slightly tighter */
-    margin-left:0;
-  }
-
+  padding:7px 10px;
+  font-size:10px;
+  letter-spacing:2px;
+  margin-left:0;
+  border-radius:999px;
+  white-space:nowrap;
+}
 }
 </style>
 </head>
