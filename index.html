@@ -148,7 +148,15 @@ footer{
 .modal-content form {
   display:flex;
   flex-direction:column;
-  align-items:center;   /* 👈 THIS is the key */
+  align-items:center;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content button {
+  width:100%;
+  max-width:260px;
+  box-sizing:border-box;
 }
 
 .close,
