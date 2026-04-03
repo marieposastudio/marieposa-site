@@ -330,14 +330,22 @@ nav a{
 }
   
  .access-line {
-  font-family:'Cormorant Garamond', serif;
-  font-style:italic;
-  font-size:14px;
-  letter-spacing:0.1px;
-  line-height:1.15;
-  opacity:0.8;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.1px;
+  line-height: 1.15;
+  opacity: 0.8;
+  color: rgba(255,255,255,0.85); /* ADD THIS */
 }
 
+  .dot {
+  color: rgba(201,162,74,0.9);  /* stronger gold */
+  font-size: 12px;              /* slightly bigger */
+  opacity: 1;                   /* REMOVE fade */
+  margin: 0 6px;
+}
+  
 /* ADD THIS RIGHT HERE */
 .contact-title {
   font-family: 'Cormorant Garamond', serif;
@@ -490,25 +498,25 @@ nav a{
   <input
     type="text"
     name="FNAME"
-    placeholder="First Name"
+    placeholder="FIRST NAME"
   >
 
   <input
     type="text"
     name="LNAME"
-    placeholder="Last Name"
+    placeholder="LAST NAME"
   >
 
   <input
     type="text"
     name="BIRTHDAY"
-    placeholder="Birthday"
+    placeholder="BIRTHDAY"
   >
 
   <input
     type="email"
     name="EMAIL"
-    placeholder="Email Address"
+    placeholder="EMAIL ADDRESS"
     required
   >
 
