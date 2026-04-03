@@ -320,24 +320,26 @@ nav a{
 
 .access-copy {
   display:flex;
-  flex-direction:column;
-  gap:2px;
-  margin-bottom:16px;
-  text-align:left;
-  align-items:flex-start;
-  align-self:center;
-  width:52%;
-  margin-left:auto;
-  margin-right:auto;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
 }
   
-  .access-line {
+ .access-line {
   font-family:'Cormorant Garamond', serif;
   font-style:italic;
   font-size:14px;
   letter-spacing:0.1px;
   line-height:1.15;
   opacity:0.8;
+}
+
+/* ADD THIS RIGHT HERE */
+.dot{
+  color: rgba(201,162,74,0.7);
+  font-size:12px;
 }
 
 .access-form{
@@ -426,9 +428,11 @@ nav a{
     <div class="access-subtitle">PRIVATE RELEASE</div>
 
    <div class="access-copy">
-  <div class="access-line">Early access</div>
-  <div class="access-line">Priority notification</div>
-  <div class="access-line">First notice</div>
+  <span class="access-line">Early access</span>
+  <span class="dot">✦</span>
+  <span class="access-line">Priority notification</span>
+  <span class="dot">✦</span>
+  <span class="access-line">First notice</span>
 </div>
 
     <form
