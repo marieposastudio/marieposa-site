@@ -298,18 +298,19 @@ nav a{
 .access-copy {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 24px;
-  font-size: 13px;
-  opacity: 0.85;
+  gap: 6px;              /* tighter spacing */
+  margin-bottom: 20px;
+  font-size: 12px;       /* slightly smaller */
+  opacity: 0.7;          /* softer */
   text-align: left;
   align-items: flex-start;
-  align-self: stretch;
+  align-self: center;    /* KEY: brings it off the far left */
+  width: 75%;            /* controls alignment zone */
 }
   
   .access-line {
-  letter-spacing: 0.5px;
-  text-align: left;
+  letter-spacing: 0.4px;
+  line-height: 1.4;
 }
 
 .access-form{
