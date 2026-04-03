@@ -23,8 +23,17 @@ body{
   font-family:"Times New Roman", serif;
   overflow-x:hidden;
 }
+  
+input, textarea {
+  text-align: center;
+}
 
-/* deep spotlight */
+input::placeholder,
+textarea::placeholder {
+  text-align: center;
+}
+  
+  /* deep spotlight */
 body::before{
   content:"";
   position:fixed;
@@ -392,12 +401,13 @@ nav a{
   gap:10px;
 }
 
-.access-form input{
+.access-form input {
   background:#111;
   border:1px solid rgba(201,162,74,0.35);
   padding:10px;
   border-radius:8px;
   color:white;
+  text-align: center; /* ADD THIS */
 }
 
 .access-form input,
@@ -438,7 +448,7 @@ nav a{
   <div class="hero-line">Luxury, as it should feel</div>
   <div class="release-label">Private Release</div>
 
-  <a href="#" class="reserve-button" onclick="openAccessModal(); return false;">Request Access</a>
+  <a href="#" class="reserve-button" onclick="openAccessModal(); return false;">Access</a>
 </main>
 
 <footer>
