@@ -166,7 +166,7 @@ button{
   opacity:0.6;
 }
 .close:hover{opacity:1;}
-/* MOBILE TUNE-UP (smaller buttons, better placement) */
+
 @media (max-width: 520px){
   header{
     padding: 18px 16px;
@@ -185,9 +185,9 @@ button{
 
   nav{
   display:flex;
-  flex-direction:column;   /* stack vertically */
-  align-items:flex-end;    /* keep on the RIGHT */
-  gap:8px;                 /* spacing between buttons */
+  flex-direction:column;   
+  align-items:flex-end;    
+  gap:8px;                 
 }
 
 nav a{
@@ -218,7 +218,7 @@ nav a{
 
 .reserve-button{
   display:inline-block;
-  margin-top:14px;   /* was 24px */
+  margin-top:14px;   
 
   padding:7px 14px;
   font-size:10px;
@@ -268,7 +268,7 @@ nav a{
   <div class="hero-line">Luxury, as it should feel</div>
   <div class="release-label">Private Release</div>
 
-  <a href="#" class="reserve-button" onclick="openModal(); return false;">Join the Release List</a>
+  <a href="#" class="reserve-button" onclick="openAccessModal(); return false;">Request Access</a>
 </main>
 
 <footer>
@@ -295,6 +295,27 @@ nav a{
   </div>
 </div>
 
+<div class="access-modal" id="accessModal">
+  <div class="access-modal-content">
+    <div class="access-close" onclick="closeAccessModal()">CLOSE</div>
+
+    <div class="access-title">Request Access</div>
+    <div class="access-subtitle">Private Release</div>
+
+    <div class="access-copy">
+      Early access to the first release<br>
+      Priority notification<br>
+      First notice when the drop opens
+    </div>
+
+    <form class="access-form">
+      <input type="text" placeholder="First Name">
+      <input type="email" placeholder="Email" required>
+      <button type="submit">REQUEST ACCESS</button>
+    </form>
+  </div>
+</div>  
+
 <script>
 function openModal(){
   document.getElementById("contactModal").style.display="flex";
@@ -302,7 +323,14 @@ function openModal(){
 function closeModal(){
   document.getElementById("contactModal").style.display="none";
 }
-</script>
 
+function openAccessModal(){
+  document.getElementById("accessModal").style.display="flex";
+}
+function closeAccessModal(){
+  document.getElementById("accessModal").style.display="none";
+}
+</script>
+  
 </body>
 </html>
