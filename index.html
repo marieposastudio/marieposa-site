@@ -135,13 +135,36 @@ footer{
   box-sizing:border-box;
 }
 
+/* THIS IS THE IMPORTANT ADD */
+.modal-content form{
+  display:flex;
+  flex-direction:column;
+}
+
+.close,
+.access-close{
+  text-align:right;
+  cursor:pointer;
+  font-size:11px;
+  letter-spacing:2px;
+  opacity:0.6;
+  margin-bottom:12px;
+  width:100%;
+}
+
+.close:hover,
+.access-close:hover{
+  opacity:1;
+}
+
+/* inputs */
 input, textarea{
   width:100%;
   background:#111;
   border:1px solid rgba(201,162,74,0.4);
   color:var(--text);
   padding:12px;
-  margin:10px 0;
+  margin:12px 0;
   border-radius:8px;
   font-family:inherit;
 }
@@ -161,14 +184,19 @@ button{
   letter-spacing:3px;
   cursor:pointer;
 }
-
-.close{
+.close,
+.access-close{
   text-align:right;
   cursor:pointer;
-  font-size:12px;
+  font-size:11px;
+  letter-spacing:2px;
   opacity:0.6;
+  margin-bottom:12px;
+  width:100%;
 }
-.close:hover{opacity:1;}
+  
+.close:hover,
+.access-close:hover{opacity:1;}
 
 @media (max-width: 520px){
   header{
@@ -283,33 +311,33 @@ nav a{
 }
 
 .access-subtitle{
-  font-size: 14px;
-  letter-spacing: 9px;   /* slightly more air */
-  margin-bottom: 12px;   /* tighten connection */
-  opacity: 0.85;
+  font-size: 13px;
+  letter-spacing: 6px;   /* slightly more air */
+  margin-bottom: 10px;   /* tighten connection */
+  opacity: 0.82;
   text-transform: uppercase;
 }
 
 .access-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 18px;
-  text-align: left;
-  align-items: flex-start;
-  align-self: center;
-  width: 58%;
-  margin-left: auto;
-  margin-right: auto;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  margin-bottom:16px;
+  text-align:left;
+  align-items:flex-start;
+  align-self:center;
+  width:52%;
+  margin-left:auto;
+  margin-right:auto;
 }
   
   .access-line {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 14px;
-  letter-spacing: 0.2px;
-  line-height: 1.2;
-  opacity: 0.78;
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:14px;
+  letter-spacing:0.1px;
+  line-height:1.15;
+  opacity:0.8;
 }
 
 .access-form{
