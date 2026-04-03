@@ -259,7 +259,7 @@ nav a{
   z-index:9999;
 }
 
-..access-modal-content{
+.access-modal-content{
   background:#0b0b0b;
   padding:42px 32px;
   border-radius:16px;
@@ -295,27 +295,17 @@ nav a{
   text-transform:uppercase;
 }
 
-.access-copy{
-  font-size:13px;
-  line-height:1.9;
-  margin-bottom:22px;
-  opacity:0.85;
+.access-copy {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  opacity: 0.85;
 }
-
-.access-copy div{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  margin-bottom:8px;
-}
-
-.dot{
-  width:5px;
-  height:5px;
-  border-radius:50%;
-  background:linear-gradient(90deg,#f8e8b0,#c9a24a,#8a6a22);
-  flex-shrink:0;
+  .access-line {
+  letter-spacing: 0.5px;
 }
 
 .access-form{
@@ -405,9 +395,9 @@ nav a{
     <div class="access-subtitle">Private Release</div>
 
    <div class="access-copy">
-  <div><span class="dot"></span>Early access to the first release</div>
-  <div><span class="dot"></span>Priority notification</div>
-  <div><span class="dot"></span>First notice when the drop opens</div>
+  <div class="access-line">Early access to the first release</div>
+  <div class="access-line">Priority notification</div>
+  <div class="access-line">First notice when the collection opens</div>
 </div>
 
     <form
@@ -431,7 +421,7 @@ nav a{
   <input
     type="text"
     name="BIRTHDAY"
-    placeholder="Birthday (for something special)"
+    placeholder="Birthday"
   >
 
   <input
