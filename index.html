@@ -249,14 +249,17 @@ nav a{
 .access-modal{
   display:none;
   position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.85);
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background:rgba(0,0,0,0.88);
   justify-content:center;
   align-items:center;
   z-index:9999;
 }
 
-.access-modal-content{
+..access-modal-content{
   background:#0b0b0b;
   padding:36px 28px;
   border-radius:16px;
@@ -264,6 +267,7 @@ nav a{
   max-width:90vw;
   border:1px solid rgba(201,162,74,0.35);
   text-align:center;
+  box-sizing:border-box;
 }
 
 .access-close{
@@ -276,8 +280,9 @@ nav a{
 }
 
 .access-title{
-  font-family:serif;
+  font-family:'Cormorant Garamond', serif;
   font-size:26px;
+  font-style:italic;
   margin-bottom:6px;
 }
 
@@ -309,6 +314,12 @@ nav a{
   color:white;
 }
 
+.access-form input,
+.access-form button{
+  width:100%;
+  box-sizing:border-box;
+}
+  
 .access-form button{
   background:transparent;
   border:1px solid rgba(201,162,74,0.6);
