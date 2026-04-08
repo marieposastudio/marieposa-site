@@ -426,6 +426,184 @@ nav a{
   letter-spacing:3px;
   cursor:pointer;
   color:white;
+} 
+/* ===== STORY HOVER SYSTEM ===== */
+
+.story-stage{
+  position:relative;
+  width:100%;
+  max-width:760px;
+  margin:38px auto 0;
+  min-height:260px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+}
+
+.story-visual{
+  position:relative;
+  width:100%;
+  max-width:620px;
+  opacity:0;
+  transform:scale(0.985);
+  transition:opacity 0.45s ease, transform 0.55s ease;
+  filter:drop-shadow(0 22px 50px rgba(0,0,0,0.55));
+}
+
+.story-visual img{
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius:10px;
+}
+
+.story-copy{
+  position:absolute;
+  left:50%;
+  bottom:-22px;
+  transform:translateX(-50%);
+  width:min(92vw, 760px);
+  text-align:center;
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:19px;
+  letter-spacing:0.2px;
+  line-height:1.2;
+  color:rgba(248,232,176,0.96);
+  opacity:0;
+  transition:opacity 0.35s ease, transform 0.45s ease;
+  text-shadow:0 0 18px rgba(201,162,74,0.08);
+}
+
+.story-stage.active .story-visual{
+  opacity:1;
+  transform:scale(1);
+}
+
+.story-stage.active .story-copy{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+.story-pollen{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity 0.35s ease;
+}
+
+.story-stage.active .story-pollen{
+  opacity:1;
+}
+
+.pollen-dot{
+  position:absolute;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(248,232,176,0.96) 0%, rgba(201,162,74,0.72) 55%, rgba(201,162,74,0) 100%);
+  box-shadow:
+    0 0 10px rgba(248,232,176,0.28),
+    0 0 18px rgba(201,162,74,0.16);
+  opacity:0;
+  animation:floatUp 1.9s ease-out forwards;
+}
+
+@keyframes floatUp{
+  0%{
+    opacity:0;
+    transform:translate3d(0, 0, 0) scale(0.7);
+  }
+  15%{
+    opacity:0.95;
+  }
+  100%{
+    opacity:0;
+    transform:translate3d(var(--drift-x, 0px), var(--drift-y, -80px), 0) scale(1.15);
+  }
+}
+
+.story-nav{
+  margin-top:28px;
+  text-align:center;
+  position:relative;
+  z-index:3;
+}
+
+.story-links{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:0;
+}
+
+.story-link{
+  position:relative;
+  appearance:none;
+  background:none;
+  border:none;
+  color:rgba(238,238,238,0.78);
+  font-family:"Times New Roman", serif;
+  font-size:11px;
+  letter-spacing:6px;
+  text-transform:uppercase;
+  padding:0 14px;
+  cursor:pointer;
+  transition:opacity 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.story-link:hover,
+.story-link.active{
+  color:rgba(248,232,176,0.96);
+  opacity:1;
+  transform:translateY(-1px);
+}
+
+.story-link:focus-visible{
+  outline:none;
+  color:rgba(248,232,176,0.96);
+}
+
+@media (max-width: 700px){
+  .story-stage{
+    min-height:180px;
+    margin-top:26px;
+  }
+
+  .story-visual{
+    max-width:92vw;
+  }
+
+  .story-copy{
+    font-size:17px;
+    bottom:-18px;
+    width:min(92vw, 520px);
+  }
+
+  .story-links{
+    row-gap:12px;
+  }
+
+  .story-link{
+    font-size:10px;
+    letter-spacing:4px;
+    padding:0 10px;
+  }
+}
+
+@media (max-width: 520px){
+  .story-stage{
+    min-height:150px;
+  }
+
+  .story-copy{
+    font-size:15px;
+    line-height:1.22;
+    width:min(92vw, 420px);
+  }
 }  
 </style>
 </head>
@@ -453,8 +631,33 @@ nav a{
   <a href="#" class="reserve-button" onclick="openAccessModal(); return false;">ACCESS</a>
 </main>
 
+<div class="story-stage" id="storyStage">
+  <div class="story-pollen" id="storyPollen"></div>
+
+  <div class="story-visual" id="storyVisual">
+    <img id="storyImage" src="/mnt/data/a_close_up_close_up_digital_photograph_captures_th.png" alt="Marieposa detail">
+  </div>
+
+  <div class="story-copy" id="storyCopy"></div>
+</div>
+
 <footer>
-  MISTY &nbsp; NANCY &nbsp; CAROL &nbsp; ALICIA &nbsp; DEBBIE &nbsp; KIMBARBIE
+  <div class="story-nav">
+    <div class="story-links">
+      <button class="story-link" data-name="MISTY" data-image="/mnt/data/a_close_up_close_up_digital_photograph_captures_th.png" data-line="Misty — where nothing was overlooked, and Marieposa began.">MISTY</button>
+
+      <button class="story-link" data-name="NANCY" data-image="/mnt/data/a_close_up_close_up_digital_photograph_captures_th.png" data-line="Years of experience shaped what elegance should feel like.">NANCY</button>
+
+      <button class="story-link" data-name="CAROL" data-image="/mnt/data/a_close_up_close_up_digital_photograph_captures_th.png" data-line="Every detail shaped with purpose.">CAROL</button>
+
+      <button class="story-link" data-name="ALICIA" data-image="/mnt/data/a_close_up_close_up_digital_photograph_captures_th.png" data-line="Form followed feeling.">ALICIA</button>
+
+      <button class="story-link" data-name="DEBBIE" data-image="/mnt/data/a_close_up_close_up_digital_photograph_captures_th.png" data-line="Designed to hold you — quietly, precisely, completely.">DEBBIE</button>
+
+      <button class="story-link" data-name="KIMBARBIE" data-image="/mnt/data/a_close_up_close_up_digital_photograph_captures_th.png" data-line="Refined to feel instinctive.">KIMBARBIE</button>
+    </div>
+  </div>
+
   <br><br>
   © 2026 MARIEPOSA
 </footer>
@@ -560,6 +763,141 @@ function openAccessModal(){
 function closeAccessModal(){
   document.getElementById("accessModal").style.display="none";
 }
+  <script>
+function openModal(){
+  document.getElementById("contactModal").style.display="flex";
+}
+function closeModal(){
+  document.getElementById("contactModal").style.display="none";
+}
+
+function openAccessModal(){
+  document.getElementById("accessModal").style.display="flex";
+}
+function closeAccessModal(){
+  document.getElementById("accessModal").style.display="none";
+}
+
+/* ===== STORY HOVER SYSTEM ===== */
+
+const storyStage = document.getElementById("storyStage");
+const storyImage = document.getElementById("storyImage");
+const storyCopy = document.getElementById("storyCopy");
+const storyPollen = document.getElementById("storyPollen");
+const storyLinks = document.querySelectorAll(".story-link");
+
+const pollenConfigs = {
+  MISTY: {
+    count: 9,
+    originX: [44, 56],
+    originY: [68, 80],
+    driftX: [-16, 14],
+    driftY: [-48, -86]
+  },
+  NANCY: {
+    count: 12,
+    originX: [24, 38],
+    originY: [54, 72],
+    driftX: [18, 48],
+    driftY: [-46, -92]
+  },
+  CAROL: {
+    count: 14,
+    originX: [46, 58],
+    originY: [44, 60],
+    driftX: [-22, 24],
+    driftY: [-52, -102]
+  },
+  ALICIA: {
+    count: 11,
+    originX: [58, 74],
+    originY: [48, 66],
+    driftX: [-26, 8],
+    driftY: [-42, -84]
+  },
+  DEBBIE: {
+    count: 8,
+    originX: [38, 52],
+    originY: [58, 72],
+    driftX: [-10, 22],
+    driftY: [-36, -66]
+  },
+  KIMBARBIE: {
+    count: 6,
+    originX: [48, 60],
+    originY: [38, 52],
+    driftX: [-8, 14],
+    driftY: [-28, -58]
+  }
+};
+
+function rand(min, max){
+  return Math.random() * (max - min) + min;
+}
+
+function clearPollen(){
+  storyPollen.innerHTML = "";
+}
+
+function createPollen(name){
+  clearPollen();
+
+  const config = pollenConfigs[name] || pollenConfigs.MISTY;
+
+  for(let i = 0; i < config.count; i++){
+    const dot = document.createElement("span");
+    dot.className = "pollen-dot";
+
+    const left = rand(config.originX[0], config.originX[1]);
+    const top = rand(config.originY[0], config.originY[1]);
+    const driftX = rand(config.driftX[0], config.driftX[1]);
+    const driftY = rand(config.driftY[0], config.driftY[1]);
+    const delay = rand(0, 0.55);
+    const size = rand(3.5, 7);
+
+    dot.style.left = left + "%";
+    dot.style.top = top + "%";
+    dot.style.width = size + "px";
+    dot.style.height = size + "px";
+    dot.style.setProperty("--drift-x", driftX + "px");
+    dot.style.setProperty("--drift-y", driftY + "px");
+    dot.style.animationDelay = delay + "s";
+
+    storyPollen.appendChild(dot);
+  }
+}
+
+function activateStory(link){
+  const name = link.dataset.name;
+  const image = link.dataset.image;
+  const line = link.dataset.line;
+
+  storyLinks.forEach(item => item.classList.remove("active"));
+  link.classList.add("active");
+
+  if(image){
+    storyImage.src = image;
+  }
+
+  storyCopy.textContent = line;
+  storyStage.classList.add("active");
+
+  createPollen(name);
+}
+
+function deactivateStory(){
+  storyLinks.forEach(item => item.classList.remove("active"));
+  storyStage.classList.remove("active");
+  clearPollen();
+}
+
+storyLinks.forEach(link => {
+  link.addEventListener("mouseenter", () => activateStory(link));
+  link.addEventListener("focus", () => activateStory(link));
+});
+
+const storyNav = document.querySelector(".story-nav");
+storyNav.addEventListener("mouseleave", deactivateStory);
 </script>
   
 </body>
