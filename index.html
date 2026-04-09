@@ -543,11 +543,20 @@ nav a{
   white-space:nowrap;
 }
 
+.story-links button{
+  width:auto;
+  border:none;
+  background:none;
+  padding:0 14px;
+}
+
 .story-link{
   position:relative;
   appearance:none;
   background:none;
   border:none;
+  width:auto;
+  min-width:0;
   color:rgba(238,238,238,0.78);
   font-family:"Times New Roman", serif;
   font-size:11px;
@@ -559,6 +568,8 @@ nav a{
   transition:opacity 0.25s ease, color 0.25s ease, transform 0.25s ease;
   display:inline-block;
   vertical-align:middle;
+  flex:0 0 auto;
+  box-sizing:border-box;
 }
 
 .story-link:hover,
@@ -661,7 +672,7 @@ nav a{
   <div class="story-pollen" id="storyPollen"></div>
 
   <div class="story-visual" id="storyVisual">
-    <img id="storyImage" src="/mnt/data/a_close_up_close_up_digital_photograph_captures_th.png" alt="Marieposa detail">
+   <img id="storyImage" src="misty-detail.png" alt="Marieposa detail">
   </div>
 
   <div class="story-copy" id="storyCopy"></div>
