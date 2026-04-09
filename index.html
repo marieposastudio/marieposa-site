@@ -430,15 +430,17 @@ nav a{
 /* ===== STORY HOVER SYSTEM ===== */
 
 .story-stage{
-  position:relative;
-  width:100%;
-  max-width:760px;
-  margin:38px auto 0;
+  position:fixed;
+  left:50%;
+  bottom:120px;
+  transform:translateX(-50%);
+  width:min(92vw, 760px);
   min-height:260px;
   display:flex;
   align-items:center;
   justify-content:center;
   pointer-events:none;
+  z-index:2;
 }
 
 .story-visual{
@@ -527,7 +529,6 @@ nav a{
 }
 
 .story-nav{
-  margin-top:28px;
   text-align:center;
   position:relative;
   z-index:3;
@@ -535,9 +536,11 @@ nav a{
 
 .story-links{
   display:flex;
-  flex-wrap:wrap;
   justify-content:center;
+  align-items:center;
+  flex-wrap:nowrap;
   gap:0;
+  white-space:nowrap;
 }
 
 .story-link{
@@ -551,8 +554,11 @@ nav a{
   letter-spacing:6px;
   text-transform:uppercase;
   padding:0 14px;
+  margin:0;
   cursor:pointer;
   transition:opacity 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  display:inline-block;
+  vertical-align:middle;
 }
 
 .story-link:hover,
@@ -631,6 +637,26 @@ nav a{
   <a href="#" class="reserve-button" onclick="openAccessModal(); return false;">ACCESS</a>
 </main>
 
+<footer>
+  <div class="story-nav">
+    <div class="story-links">
+      <button class="story-link" data-name="MISTY" data-image="misty-detail.png" data-line="Misty — where nothing was overlooked, and Marieposa began.">MISTY</button>
+
+      <button class="story-link" data-name="NANCY" data-image="misty-detail.png" data-line="Years of experience shaped what elegance should feel like.">NANCY</button>
+
+      <button class="story-link" data-name="CAROL" data-image="misty-detail.png" data-line="Every detail shaped with purpose.">CAROL</button>
+
+      <button class="story-link" data-name="ALICIA" data-image="misty-detail.png" data-line="Form followed feeling.">ALICIA</button>
+
+      <button class="story-link" data-name="DEBBIE" data-image="misty-detail.png" data-line="Designed to hold you — quietly, precisely, completely.">DEBBIE</button>
+
+      <button class="story-link" data-name="KIMBARBIE" data-image="misty-detail.png" data-line="Expect it from Marieposa.">KIMBARBIE</button>
+    </div>
+  </div>
+  <br><br>
+  © 2026 MARIEPOSA
+</footer>
+  
 <div class="story-stage" id="storyStage">
   <div class="story-pollen" id="storyPollen"></div>
 
@@ -640,28 +666,7 @@ nav a{
 
   <div class="story-copy" id="storyCopy"></div>
 </div>
-
-<footer>
-  <div class="story-nav">
-    <div class="story-links">
-      <button class="story-link" data-name="MISTY" data-image="/mnt/data/a_close_up_close_up_digital_photograph_captures_th.png" data-line="Misty — where nothing was overlooked, and Marieposa began.">MISTY</button>
-
-      <button class="story-link" data-name="NANCY" data-image="/mnt/data/a_close_up_close_up_digital_photograph_captures_th.png" data-line="Years of experience shaped what elegance should feel like.">NANCY</button>
-
-      <button class="story-link" data-name="CAROL" data-image="/mnt/data/a_close_up_close_up_digital_photograph_captures_th.png" data-line="Every detail shaped with purpose.">CAROL</button>
-
-      <button class="story-link" data-name="ALICIA" data-image="/mnt/data/a_close_up_close_up_digital_photograph_captures_th.png" data-line="Form followed feeling.">ALICIA</button>
-
-      <button class="story-link" data-name="DEBBIE" data-image="/mnt/data/a_close_up_close_up_digital_photograph_captures_th.png" data-line="Designed to hold you — quietly, precisely, completely.">DEBBIE</button>
-
-      <button class="story-link" data-name="KIMBARBIE" data-image="/mnt/data/a_close_up_close_up_digital_photograph_captures_th.png" data-line="Expect it. Marieposa.">KIMBARBIE</button>
-    </div>
-  </div>
-
-  <br><br>
-  © 2026 MARIEPOSA
-</footer>
-
+  
 <!-- Modal -->
 <div class="modal" id="contactModal">
   <div class="modal-content">
@@ -763,20 +768,6 @@ function openAccessModal(){
 function closeAccessModal(){
   document.getElementById("accessModal").style.display="none";
 }
-  <script>
-function openModal(){
-  document.getElementById("contactModal").style.display="flex";
-}
-function closeModal(){
-  document.getElementById("contactModal").style.display="none";
-}
-
-function openAccessModal(){
-  document.getElementById("accessModal").style.display="flex";
-}
-function closeAccessModal(){
-  document.getElementById("accessModal").style.display="none";
-}
 
 /* ===== STORY HOVER SYSTEM ===== */
 
@@ -787,48 +778,12 @@ const storyPollen = document.getElementById("storyPollen");
 const storyLinks = document.querySelectorAll(".story-link");
 
 const pollenConfigs = {
-  MISTY: {
-    count: 9,
-    originX: [44, 56],
-    originY: [68, 80],
-    driftX: [-16, 14],
-    driftY: [-48, -86]
-  },
-  NANCY: {
-    count: 12,
-    originX: [24, 38],
-    originY: [54, 72],
-    driftX: [18, 48],
-    driftY: [-46, -92]
-  },
-  CAROL: {
-    count: 14,
-    originX: [46, 58],
-    originY: [44, 60],
-    driftX: [-22, 24],
-    driftY: [-52, -102]
-  },
-  ALICIA: {
-    count: 11,
-    originX: [58, 74],
-    originY: [48, 66],
-    driftX: [-26, 8],
-    driftY: [-42, -84]
-  },
-  DEBBIE: {
-    count: 8,
-    originX: [38, 52],
-    originY: [58, 72],
-    driftX: [-10, 22],
-    driftY: [-36, -66]
-  },
-  KIMBARBIE: {
-    count: 6,
-    originX: [48, 60],
-    originY: [38, 52],
-    driftX: [-8, 14],
-    driftY: [-28, -58]
-  }
+  MISTY: { count: 9, originX: [44, 56], originY: [68, 80], driftX: [-16, 14], driftY: [-48, -86] },
+  NANCY: { count: 12, originX: [24, 38], originY: [54, 72], driftX: [18, 48], driftY: [-46, -92] },
+  CAROL: { count: 14, originX: [46, 58], originY: [44, 60], driftX: [-22, 24], driftY: [-52, -102] },
+  ALICIA: { count: 11, originX: [58, 74], originY: [48, 66], driftX: [-26, 8], driftY: [-42, -84] },
+  DEBBIE: { count: 8, originX: [38, 52], originY: [58, 72], driftX: [-10, 22], driftY: [-36, -66] },
+  KIMBARBIE: { count: 6, originX: [48, 60], originY: [38, 52], driftX: [-8, 14], driftY: [-28, -58] }
 };
 
 function rand(min, max){
@@ -841,7 +796,6 @@ function clearPollen(){
 
 function createPollen(name){
   clearPollen();
-
   const config = pollenConfigs[name] || pollenConfigs.MISTY;
 
   for(let i = 0; i < config.count; i++){
@@ -881,7 +835,6 @@ function activateStory(link){
 
   storyCopy.textContent = line;
   storyStage.classList.add("active");
-
   createPollen(name);
 }
 
