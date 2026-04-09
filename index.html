@@ -432,10 +432,10 @@ nav a{
 .story-stage{
   position:fixed;
   left:50%;
-  bottom:120px;
+  bottom:150px;
   transform:translateX(-50%);
-  width:min(92vw, 760px);
-  min-height:260px;
+  width:min(82vw, 520px);
+  min-height:180px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -446,11 +446,11 @@ nav a{
 .story-visual{
   position:relative;
   width:100%;
-  max-width:620px;
+  max-width:430px;
   opacity:0;
   transform:scale(0.985);
   transition:opacity 0.45s ease, transform 0.55s ease;
-  filter:drop-shadow(0 22px 50px rgba(0,0,0,0.55));
+  filter:drop-shadow(0 18px 36px rgba(0,0,0,0.50));
 }
 
 .story-visual img{
@@ -463,19 +463,19 @@ nav a{
 .story-copy{
   position:absolute;
   left:50%;
-  bottom:-22px;
+  bottom:18px;
   transform:translateX(-50%);
-  width:min(92vw, 760px);
+  width:82%;
   text-align:center;
   font-family:'Cormorant Garamond', serif;
   font-style:italic;
-  font-size:19px;
+  font-size:20px;
   letter-spacing:0.2px;
   line-height:1.2;
-  color:rgba(248,232,176,0.96);
+  color:rgba(248,232,176,0.98);
   opacity:0;
   transition:opacity 0.35s ease, transform 0.45s ease;
-  text-shadow:0 0 18px rgba(201,162,74,0.08);
+  text-shadow:0 0 18px rgba(201,162,74,0.10);
 }
 
 .story-stage.active .story-visual{
