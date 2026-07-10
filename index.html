@@ -923,11 +923,10 @@ function deactivateStory(){
 
 storyLinks.forEach(link => {
   link.addEventListener("mouseenter", () => activateStory(link));
-  link.addEventListener("focus", () => activateStory(link));
+  link.addEventListener("mouseleave", deactivateStory);
 });
 
-const storyNav = document.querySelector(".story-nav");
-storyNav.addEventListener("mouseleave", deactivateStory);
+deactivateStory();
 </script>
   
 </body>
