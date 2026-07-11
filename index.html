@@ -617,7 +617,6 @@ nav a{
   filter:drop-shadow(0 18px 36px rgba(0,0,0,0.50));
   z-index:1;
 }
-
   .story-copy{
     font-size:17px;
     bottom:-18px;
@@ -906,9 +905,19 @@ function activateStory(link){
   storyLinks.forEach(item => item.classList.remove("active"));
   link.classList.add("active");
 
-  if(image){
+ if(image){
     storyImage.src = image;
-  }
+
+    if(name === "NANCY"){
+        storyImage.style.width = "55%";
+        storyImage.style.display = "block";
+        storyImage.style.margin = "0 auto";
+    }else{
+        storyImage.style.width = "100%";
+        storyImage.style.display = "block";
+        storyImage.style.margin = "0 auto";
+    }
+}
 
   storyCopy.textContent = line;
   storyStage.classList.add("active");
