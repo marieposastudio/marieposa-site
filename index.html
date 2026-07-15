@@ -701,7 +701,7 @@ nav a{
   <div class="story-pollen" id="storyPollen"></div>
 
   <div class="story-visual" id="storyVisual">
-   <img id="storyImage" src="misty-sole-closeup.jpg" alt="Marieposa detail"> alt="Marieposa detail">
+   <img id="storyImage" src="misty-sole-closeup.jpg" alt="Marieposa detail">
   </div>
 
   <div class="story-copy" id="storyCopy"></div>
@@ -924,8 +924,20 @@ function deactivateStory(){
 }
 
 storyLinks.forEach(link => {
+  /* Laptop/Desktop hover */
   link.addEventListener("mouseenter", () => activateStory(link));
   link.addEventListener("mouseleave", deactivateStory);
+
+  /* Phone/tablet tap */
+  link.addEventListener("click", event => {
+    event.preventDefault();
+
+    if(link.classList.contains("active")){
+      deactivateStory();
+    }else{
+      activateStory(link);
+    }
+  });
 });
 
 deactivateStory();
