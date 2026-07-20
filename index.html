@@ -816,8 +816,16 @@ const storyImage = document.getElementById("storyImage");
 const storyCopy = document.getElementById("storyCopy");
 const storyPollen = document.getElementById("storyPollen");
 const storyLinks = document.querySelectorAll(".story-link");
-
-const pollenConfigs = {
+  
+[
+  "misty-sole-closeup.jpg",
+  "nancy-stiletto-crystal-closeup.jpg"
+].forEach(src => {
+  const img = new Image();
+  img.src = src;
+});
+  
+  const pollenConfigs = {
   MISTY: {
   count: 36,
   originX: [13, 17],
